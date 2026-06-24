@@ -4,356 +4,434 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="NutriArq">
 <title>NutriArq</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F5F3EE;color:#1C1C1A;font-size:15px;max-width:430px;margin:0 auto;min-height:100vh}
-.topbar{background:#fff;border-bottom:0.5px solid #E0DDD5;padding:14px 16px 10px;position:sticky;top:0;z-index:10}
-.app-title{font-size:18px;font-weight:600;color:#1C1C1A;display:flex;align-items:center;gap:6px}
-.app-sub{font-size:12px;color:#8A8A84;margin-top:2px}
-.nav-tabs{display:flex;background:#fff;border-bottom:0.5px solid #E0DDD5;position:sticky;top:57px;z-index:9}
-.nav-tab{flex:1;padding:10px 0 8px;text-align:center;font-size:11px;color:#8A8A84;cursor:pointer;border-bottom:2px solid transparent}
-.nav-tab.active{color:#3B6D11;border-bottom-color:#639922;font-weight:600}
+:root{
+  --bg:#0A0A0A;
+  --bg2:#111111;
+  --bg3:#1A1A1A;
+  --bg4:#222222;
+  --border:#2A2A2A;
+  --border2:#333333;
+  --text:#F0F0F0;
+  --text2:#A0A0A0;
+  --text3:#606060;
+  --green:#4ADE80;
+  --green-dim:#1A3A25;
+  --green-mid:#22C55E;
+  --amber:#F59E0B;
+  --amber-dim:#2A1F00;
+  --red:#F87171;
+  --red-dim:#2A1010;
+  --radius:14px;
+  --radius-sm:8px;
+}
+html,body{height:100%;overflow:hidden}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif;background:var(--bg);color:var(--text);font-size:15px;max-width:430px;margin:0 auto;display:flex;flex-direction:column}
+
+/* TOPBAR */
+.topbar{padding:14px 16px 10px;background:var(--bg);border-bottom:0.5px solid var(--border);flex-shrink:0}
+.topbar-row{display:flex;align-items:center;justify-content:space-between}
+.app-logo{display:flex;align-items:center;gap:8px}
+.logo-dot{width:28px;height:28px;border-radius:8px;background:var(--green);display:flex;align-items:center;justify-content:center;color:#000;font-size:14px;font-weight:700}
+.app-name{font-size:17px;font-weight:600;color:var(--text);letter-spacing:-0.3px}
+.app-sub{font-size:11px;color:var(--text3);margin-top:1px}
+.topbar-right{width:32px;height:32px;border-radius:50%;background:var(--bg3);display:flex;align-items:center;justify-content:center;color:var(--text2);font-size:18px}
+
+/* NAV */
+.nav{display:flex;background:var(--bg);border-top:0.5px solid var(--border);position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;z-index:20;padding-bottom:env(safe-area-inset-bottom)}
+.nav-tab{flex:1;padding:10px 0 8px;text-align:center;font-size:10px;color:var(--text3);cursor:pointer;transition:color 0.15s;letter-spacing:0.2px}
 .nav-tab i{display:block;font-size:22px;margin-bottom:2px}
-.screen{display:none;padding-bottom:32px}
+.nav-tab.active{color:var(--green)}
+
+/* SCREENS */
+.screens{flex:1;overflow:hidden;position:relative}
+.screen{position:absolute;inset:0;overflow-y:auto;display:none;padding-bottom:80px}
 .screen.active{display:block}
+.screen::-webkit-scrollbar{display:none}
 
 /* INICIO */
-.hero-card{margin:12px;background:#EAF3DE;border-radius:14px;padding:16px;border:0.5px solid #C0DD97}
-.hero-greeting{font-size:13px;color:#3B6D11;margin-bottom:4px}
-.hero-name{font-size:20px;font-weight:600;color:#173404}
-.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
-.stat-box{background:#fff;border-radius:10px;padding:10px 12px;border:0.5px solid #E0DDD5}
-.stat-val{font-size:18px;font-weight:600;color:#1C1C1A}
-.stat-lbl{font-size:11px;color:#8A8A84;margin-top:1px}
-.sec-title{font-size:11px;font-weight:600;color:#8A8A84;letter-spacing:0.5px;text-transform:uppercase;padding:14px 16px 6px}
-.macro-card{margin:0 12px 8px;background:#fff;border-radius:14px;padding:14px 16px;border:0.5px solid #E0DDD5}
-.macro-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.macro-row:last-child{margin-bottom:0}
-.macro-ico{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.ico-p{background:#EAF3DE;color:#3B6D11}
-.ico-c{background:#FAEEDA;color:#854F0B}
-.ico-g{background:#FAECE7;color:#993C1D}
-.macro-info{flex:1}
-.macro-labels{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px}
-.macro-name{font-weight:500;color:#1C1C1A}
-.macro-num{color:#8A8A84}
-.mbar{height:6px;border-radius:3px;background:#E0DDD5;overflow:hidden}
-.mbar-fill{height:100%;border-radius:3px}
-.fill-p{background:#639922;width:31%}
-.fill-c{background:#EF9F27;width:39%}
-.fill-g{background:#D85A30;width:30%}
+.greeting-bar{padding:20px 16px 12px}
+.greeting-day{font-size:12px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.greeting-title{font-size:26px;font-weight:700;color:var(--text);letter-spacing:-0.5px;line-height:1.1}
+.greeting-title span{color:var(--green)}
 
-/* COMIDAS HOY */
-.today-card{margin:0 12px 8px;background:#fff;border-radius:14px;border:0.5px solid #E0DDD5;overflow:hidden}
-.today-head{padding:11px 14px;border-bottom:0.5px solid #E0DDD5;display:flex;justify-content:space-between;align-items:center}
-.today-dayname{font-size:14px;font-weight:600;color:#1C1C1A}
-.today-kcal{font-size:12px;color:#639922;font-weight:600}
-.meal-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:0.5px solid #E0DDD5;cursor:pointer;active:background:#F5F3EE}
+.stats-row{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;padding:0 16px 16px}
+.stat-card{background:var(--bg3);border-radius:var(--radius);padding:14px;border:0.5px solid var(--border)}
+.stat-card.accent{background:var(--green-dim);border-color:#1F4A2E}
+.stat-val{font-size:22px;font-weight:700;color:var(--text);letter-spacing:-0.5px}
+.stat-val.green{color:var(--green)}
+.stat-unit{font-size:13px;color:var(--text3);margin-left:2px;font-weight:400}
+.stat-lbl{font-size:11px;color:var(--text3);margin-top:3px}
+
+.section-header{padding:4px 16px 10px;display:flex;align-items:center;justify-content:space-between}
+.section-title{font-size:13px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:0.8px}
+
+.macro-bar-card{margin:0 16px 16px;background:var(--bg3);border-radius:var(--radius);padding:16px;border:0.5px solid var(--border)}
+.macro-row{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.macro-row:last-child{margin-bottom:0}
+.macro-ico{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.m-p{background:var(--green-dim);color:var(--green)}
+.m-c{background:var(--amber-dim);color:var(--amber)}
+.m-g{background:var(--red-dim);color:var(--red)}
+.macro-data{flex:1}
+.macro-top{display:flex;justify-content:space-between;margin-bottom:6px}
+.macro-name{font-size:13px;font-weight:500;color:var(--text)}
+.macro-num{font-size:12px;color:var(--text3)}
+.mbar{height:4px;border-radius:2px;background:var(--border2);overflow:hidden}
+.mbar-fill{height:100%;border-radius:2px;transition:width 0.6s ease}
+.fp{background:var(--green);width:31%}
+.fc{background:var(--amber);width:39%}
+.fg{background:var(--red);width:30%}
+
+.today-label{padding:0 16px 10px;display:flex;align-items:center;justify-content:space-between}
+.today-tag{font-size:11px;color:var(--green);font-weight:600;background:var(--green-dim);padding:4px 10px;border-radius:6px;letter-spacing:0.3px}
+
+.meal-list-card{margin:0 16px 8px;background:var(--bg3);border-radius:var(--radius);border:0.5px solid var(--border);overflow:hidden}
+.meal-row{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:0.5px solid var(--border);cursor:pointer;transition:background 0.1s}
 .meal-row:last-child{border-bottom:none}
-.meal-ico{width:36px;height:36px;border-radius:9px;background:#F5F3EE;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;color:#4A4A46}
+.meal-row:active{background:var(--bg4)}
+.meal-ico{width:38px;height:38px;border-radius:10px;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:17px;color:var(--text2);flex-shrink:0}
 .meal-info{flex:1;min-width:0}
-.meal-type{font-size:11px;color:#8A8A84}
-.meal-name{font-size:13px;font-weight:500;color:#1C1C1A;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.meal-prot{font-size:12px;color:#639922;font-weight:600;flex-shrink:0}
+.meal-type-lbl{font-size:11px;color:var(--text3);margin-bottom:2px}
+.meal-name-lbl{font-size:13px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.meal-prot-badge{font-size:11px;font-weight:600;color:var(--green);flex-shrink:0}
 
 /* MENU */
-.day-scroll{display:flex;gap:8px;padding:10px 12px;overflow-x:auto;scrollbar-width:none}
+.day-scroll{display:flex;gap:6px;padding:12px 16px;overflow-x:auto;scrollbar-width:none;flex-shrink:0}
 .day-scroll::-webkit-scrollbar{display:none}
-.day-pill{padding:7px 16px;border-radius:20px;font-size:13px;white-space:nowrap;cursor:pointer;border:0.5px solid #D0CEC6;background:#fff;color:#4A4A46;font-weight:500}
-.day-pill.active{background:#639922;color:#fff;border-color:#639922}
-.day-ctx{margin:0 12px 8px;font-size:12px;color:#8A8A84;padding:0 2px}
-.meal-card{margin:0 12px 10px;background:#fff;border-radius:14px;border:0.5px solid #E0DDD5;overflow:hidden}
-.mc-head{padding:10px 14px;background:#F5F3EE;border-bottom:0.5px solid #E0DDD5;display:flex;justify-content:space-between;align-items:center}
-.mc-type{font-size:12px;color:#8A8A84;display:flex;align-items:center;gap:6px}
-.mc-prot{font-size:11px;font-weight:600;background:#EAF3DE;color:#3B6D11;padding:3px 9px;border-radius:10px}
+.day-pill{padding:7px 16px;border-radius:20px;font-size:13px;font-weight:500;white-space:nowrap;cursor:pointer;background:var(--bg3);color:var(--text3);border:0.5px solid var(--border);transition:all 0.15s;flex-shrink:0}
+.day-pill.active{background:var(--green);color:#000;border-color:var(--green);font-weight:700}
+
+.day-info-bar{margin:0 16px 12px;padding:10px 14px;background:var(--bg3);border-radius:var(--radius-sm);border:0.5px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.day-ctx-txt{font-size:12px;color:var(--text3)}
+.day-kcal-txt{font-size:13px;font-weight:600;color:var(--green)}
+
+.meal-card{margin:0 16px 10px;background:var(--bg3);border-radius:var(--radius);border:0.5px solid var(--border);overflow:hidden}
+.mc-head{padding:10px 14px;background:var(--bg4);border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.mc-type-txt{font-size:11px;color:var(--text3);display:flex;align-items:center;gap:6px}
+.mc-type-txt i{font-size:15px;color:var(--text2)}
+.mc-prot-tag{font-size:11px;font-weight:700;color:var(--green);background:var(--green-dim);padding:3px 8px;border-radius:6px}
 .mc-body{padding:12px 14px}
-.mc-name{font-size:15px;font-weight:600;color:#1C1C1A;margin-bottom:10px;line-height:1.3}
-.ing-item{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:0.5px solid #F0EDE7;font-size:13px}
-.ing-item:last-child{border-bottom:none}
-.ing-name{color:#4A4A46}
-.ing-qty{font-weight:600;color:#854F0B;font-size:12px}
-.mc-meta{display:flex;gap:14px;margin-top:10px;padding-top:10px;border-top:0.5px solid #F0EDE7}
-.mc-meta-item{font-size:12px;color:#8A8A84;display:flex;align-items:center;gap:4px}
-.mc-meta-item i{font-size:14px}
+.mc-name{font-size:15px;font-weight:600;color:var(--text);margin-bottom:10px;line-height:1.3;letter-spacing:-0.2px}
+.ing-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:0.5px solid var(--border)}
+.ing-row:last-child{border-bottom:none}
+.ing-n{font-size:13px;color:var(--text2)}
+.ing-q{font-size:12px;font-weight:600;color:var(--amber)}
+.mc-footer{display:flex;gap:14px;margin-top:10px;padding-top:10px;border-top:0.5px solid var(--border)}
+.mc-foot-item{font-size:11px;color:var(--text3);display:flex;align-items:center;gap:4px}
+.mc-foot-item i{font-size:13px}
+.mc-foot-item.hi{color:var(--green);font-weight:600}
 
 /* COMPRAS */
-.search-wrap{padding:10px 12px 6px;position:relative}
-.search-wrap i{position:absolute;left:22px;top:50%;transform:translateY(-50%);font-size:18px;color:#8A8A84;pointer-events:none}
-.search-wrap input{width:100%;padding:9px 12px 9px 38px;border-radius:10px;border:0.5px solid #D0CEC6;background:#fff;font-size:14px;color:#1C1C1A;font-family:inherit}
-.search-wrap input:focus{outline:none;border-color:#639922}
-.cat-scroll{display:flex;gap:6px;padding:4px 12px 10px;overflow-x:auto;scrollbar-width:none}
-.cat-scroll::-webkit-scrollbar{display:none}
-.cat-chip{padding:6px 13px;border-radius:14px;font-size:12px;white-space:nowrap;cursor:pointer;border:0.5px solid #D0CEC6;background:#fff;color:#4A4A46;font-weight:500;display:flex;align-items:center;gap:4px}
-.cat-chip.active{background:#EAF3DE;color:#3B6D11;border-color:#C0DD97;font-weight:600}
-.prog-wrap{margin:4px 12px 10px}
-.prog-info{display:flex;justify-content:space-between;font-size:12px;color:#8A8A84;margin-bottom:5px}
-.prog-bar{height:5px;background:#E0DDD5;border-radius:3px;overflow:hidden}
-.prog-fill{height:100%;background:#639922;border-radius:3px;transition:width 0.2s}
-.shop-group{margin:0 12px 12px}
-.shop-group-title{font-size:11px;font-weight:600;color:#8A8A84;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px;padding:0 2px}
-.shop-list{background:#fff;border-radius:14px;border:0.5px solid #E0DDD5;overflow:hidden}
-.shop-item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:0.5px solid #F0EDE7;cursor:pointer}
+.shop-top{padding:12px 16px 0;flex-shrink:0}
+.search-box{position:relative;margin-bottom:10px}
+.search-box i{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:17px;color:var(--text3);pointer-events:none}
+.search-box input{width:100%;padding:10px 12px 10px 38px;border-radius:var(--radius-sm);border:0.5px solid var(--border2);background:var(--bg3);font-size:14px;color:var(--text);font-family:inherit;outline:none}
+.search-box input::placeholder{color:var(--text3)}
+.search-box input:focus{border-color:var(--green)}
+
+.cat-row{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.cat-row::-webkit-scrollbar{display:none}
+.cat-chip{padding:6px 13px;border-radius:20px;font-size:12px;font-weight:500;white-space:nowrap;cursor:pointer;background:var(--bg3);color:var(--text3);border:0.5px solid var(--border);flex-shrink:0;display:flex;align-items:center;gap:5px;transition:all 0.12s}
+.cat-chip.active{background:var(--green-dim);color:var(--green);border-color:#1F4A2E}
+
+.prog-bar-wrap{margin:12px 16px 0}
+.prog-info{display:flex;justify-content:space-between;font-size:12px;color:var(--text3);margin-bottom:6px}
+.prog-info span:last-child{color:var(--green);font-weight:600}
+.prog-bar{height:3px;background:var(--border2);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;background:var(--green);border-radius:2px;transition:width 0.3s}
+
+.shop-content{padding:12px 16px 0}
+.shop-group{margin-bottom:16px}
+.shop-group-title{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px}
+.shop-list{background:var(--bg3);border-radius:var(--radius);border:0.5px solid var(--border);overflow:hidden}
+.shop-item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:0.5px solid var(--border);cursor:pointer;transition:background 0.1s}
 .shop-item:last-child{border-bottom:none}
-.shop-check{width:24px;height:24px;border-radius:50%;border:1.5px solid #C0CCC0;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.12s}
-.shop-check.done{background:#639922;border-color:#639922}
-.shop-check.done i{color:#fff;font-size:14px}
-.shop-text{flex:1;font-size:14px;color:#1C1C1A}
-.shop-text.done{text-decoration:line-through;color:#8A8A84}
-.shop-qty{font-size:12px;color:#8A8A84;flex-shrink:0}
-.reset-btn{display:block;margin:8px 12px 0;width:calc(100% - 24px);padding:12px;text-align:center;font-size:13px;color:#993C1D;background:#FAECE7;border:0.5px solid #F5C4B3;border-radius:10px;cursor:pointer;font-family:inherit;font-weight:500}
+.shop-item:active{background:var(--bg4)}
+.shop-check{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--border2);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.15s}
+.shop-check.done{background:var(--green);border-color:var(--green)}
+.shop-check.done i{color:#000;font-size:13px;font-weight:700}
+.shop-item-text{flex:1;font-size:14px;color:var(--text)}
+.shop-item-text.done{text-decoration:line-through;color:var(--text3)}
+.shop-item-qty{font-size:12px;color:var(--text3);flex-shrink:0}
+.reset-btn{display:flex;align-items:center;justify-content:center;gap:6px;margin:4px 16px 12px;padding:12px;border-radius:var(--radius-sm);background:var(--bg3);border:0.5px solid var(--border);color:var(--text3);font-size:13px;cursor:pointer;font-family:inherit}
+.reset-btn:active{background:var(--bg4)}
+
+/* ASISTENTE */
+.ai-wrap{display:flex;flex-direction:column;height:100%}
+.ai-header{padding:16px 16px 0;flex-shrink:0}
+.ai-badge{display:inline-flex;align-items:center;gap:6px;background:var(--green-dim);border:0.5px solid #1F4A2E;border-radius:8px;padding:5px 10px;font-size:11px;color:var(--green);font-weight:600;margin-bottom:12px}
+.ai-title{font-size:22px;font-weight:700;color:var(--text);letter-spacing:-0.4px;margin-bottom:4px}
+.ai-sub{font-size:13px;color:var(--text3);line-height:1.5;margin-bottom:14px}
+
+.ai-chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 12px;flex-shrink:0}
+.ai-chip{padding:7px 12px;border-radius:20px;font-size:12px;background:var(--bg3);color:var(--text2);border:0.5px solid var(--border2);cursor:pointer;transition:all 0.12s;flex-shrink:0}
+.ai-chip:active{background:var(--bg4);border-color:var(--green);color:var(--green)}
+
+.ai-messages{flex:1;overflow-y:auto;padding:0 16px;scrollbar-width:none;display:flex;flex-direction:column;gap:10px}
+.ai-messages::-webkit-scrollbar{display:none}
+.ai-msg{max-width:82%;padding:10px 14px;border-radius:14px;font-size:14px;line-height:1.5;word-break:break-word}
+.ai-msg.user{align-self:flex-end;background:var(--green);color:#000;font-weight:500;border-bottom-right-radius:4px}
+.ai-msg.bot{align-self:flex-start;background:var(--bg3);color:var(--text);border:0.5px solid var(--border);border-bottom-left-radius:4px}
+.ai-msg.bot.loading{color:var(--text3);font-style:italic}
+
+.ai-input-wrap{padding:10px 16px 16px;flex-shrink:0;display:flex;gap:8px;background:var(--bg)}
+.ai-input-wrap input{flex:1;padding:11px 14px;border-radius:22px;border:0.5px solid var(--border2);background:var(--bg3);font-size:14px;color:var(--text);font-family:inherit;outline:none}
+.ai-input-wrap input:focus{border-color:var(--green)}
+.ai-input-wrap input::placeholder{color:var(--text3)}
+.ai-send{width:44px;height:44px;border-radius:50%;background:var(--green);border:none;color:#000;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;flex-shrink:0;transition:opacity 0.15s}
+.ai-send:disabled{opacity:0.4}
 
 /* MODAL */
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:100;align-items:flex-end;justify-content:center}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:100;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px)}
 .modal-bg.open{display:flex}
-.modal-sheet{background:#fff;border-radius:18px 18px 0 0;width:100%;max-width:430px;max-height:82vh;overflow-y:auto;padding-bottom:32px}
-.modal-handle{width:36px;height:4px;background:#D0CEC6;border-radius:2px;margin:10px auto 14px}
-.modal-head{padding:0 16px 12px;border-bottom:0.5px solid #E0DDD5}
-.modal-mtype{font-size:11px;color:#8A8A84;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:3px}
-.modal-mname{font-size:18px;font-weight:600;color:#1C1C1A;line-height:1.3}
+.modal-sheet{background:var(--bg2);border-radius:20px 20px 0 0;width:100%;max-width:430px;max-height:85vh;overflow-y:auto;scrollbar-width:none}
+.modal-sheet::-webkit-scrollbar{display:none}
+.modal-handle{width:36px;height:4px;background:var(--border2);border-radius:2px;margin:10px auto 0}
+.modal-head{padding:14px 16px 12px;border-bottom:0.5px solid var(--border)}
+.modal-mtype{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px}
+.modal-mname{font-size:18px;font-weight:700;color:var(--text);letter-spacing:-0.3px;line-height:1.3}
 .modal-body{padding:14px 16px 0}
-.modal-sec{font-size:11px;font-weight:600;color:#8A8A84;text-transform:uppercase;letter-spacing:0.4px;margin:12px 0 8px}
-.modal-ing{display:flex;justify-content:space-between;padding:7px 0;border-bottom:0.5px solid #F0EDE7;font-size:13px}
+.modal-sec{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.6px;margin:0 0 8px}
+.modal-ing{display:flex;justify-content:space-between;padding:7px 0;border-bottom:0.5px solid var(--border);font-size:13px}
 .modal-ing:last-child{border-bottom:none}
-.modal-ing-name{color:#4A4A46}
-.modal-ing-qty{font-weight:600;color:#854F0B}
-.badge-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-.badge{padding:5px 11px;border-radius:8px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:4px}
-.badge i{font-size:13px}
-.badge-g{background:#EAF3DE;color:#3B6D11}
-.badge-a{background:#FAEEDA;color:#854F0B}
-.badge-c{background:#FAECE7;color:#993C1D}
-.modal-close{margin:16px 16px 0;width:calc(100% - 32px);padding:13px;text-align:center;font-size:14px;cursor:pointer;border-radius:10px;color:#4A4A46;border:0.5px solid #D0CEC6;background:#F5F3EE;font-family:inherit;font-weight:500}
-
-/* ASISTENTE IA */
-#s-asistente.active{display:flex;flex-direction:column;min-height:calc(100vh - 110px)}
-.ai-intro{margin:16px 12px 12px;text-align:center;padding:8px 12px}
-.ai-intro-ico{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,#7A9E7E,#639922);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;color:#fff;font-size:24px}
-.ai-intro-title{font-size:17px;font-weight:600;color:#1C1C1A;margin-bottom:4px}
-.ai-intro-sub{font-size:13px;color:#8A8A84;line-height:1.4;padding:0 8px}
-.ai-suggestions{display:flex;flex-wrap:wrap;gap:8px;padding:0 12px 12px}
-.ai-chip{padding:8px 13px;border-radius:14px;font-size:12px;background:#fff;border:0.5px solid #D0CEC6;color:#4A4A46;cursor:pointer}
-.ai-chat{flex:1;padding:0 12px;display:flex;flex-direction:column;gap:10px;overflow-y:auto}
-.ai-msg{max-width:85%;padding:10px 14px;border-radius:14px;font-size:14px;line-height:1.45;white-space:pre-wrap}
-.ai-msg.user{align-self:flex-end;background:#639922;color:#fff;border-bottom-right-radius:4px}
-.ai-msg.bot{align-self:flex-start;background:#fff;color:#1C1C1A;border:0.5px solid #E0DDD5;border-bottom-left-radius:4px}
-.ai-msg.bot.loading{color:#8A8A84;font-style:italic}
-.ai-input-bar{display:flex;gap:8px;padding:10px 12px 20px;background:#F5F3EE;position:sticky;bottom:0}
-.ai-input-bar input{flex:1;padding:11px 14px;border-radius:22px;border:0.5px solid #D0CEC6;background:#fff;font-size:14px;font-family:inherit;color:#1C1C1A}
-.ai-input-bar input:focus{outline:none;border-color:#639922}
-.ai-send-btn{width:42px;height:42px;border-radius:50%;background:#639922;color:#fff;border:none;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;flex-shrink:0}
-.ai-send-btn:disabled{opacity:0.5}
+.modal-ing-n{color:var(--text2)}
+.modal-ing-q{font-weight:600;color:var(--amber)}
+.modal-badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;margin-bottom:6px}
+.mbadge{padding:6px 11px;border-radius:8px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:4px}
+.mbadge i{font-size:13px}
+.mbg{background:var(--green-dim);color:var(--green)}
+.mba{background:var(--amber-dim);color:var(--amber)}
+.mbc{background:var(--bg4);color:var(--text2)}
+.modal-close{margin:14px 16px 24px;width:calc(100% - 32px);padding:13px;text-align:center;font-size:14px;cursor:pointer;border-radius:var(--radius-sm);color:var(--text2);border:0.5px solid var(--border);background:var(--bg3);font-family:inherit;font-weight:500;display:block}
 </style>
 </head>
 <body>
 
 <div class="topbar">
-  <div style="display:flex;justify-content:space-between;align-items:center">
-    <div>
-      <div class="app-title"><i class="ti ti-leaf" style="color:#639922;font-size:20px"></i> NutriArq</div>
-      <div class="app-sub">53.3 kg &middot; 19.9% grasa &middot; 40.1 kg musculo</div>
-    </div>
-    <i class="ti ti-user-circle" style="font-size:28px;color:#8A8A84"></i>
-  </div>
-</div>
-
-<div class="nav-tabs">
-  <div class="nav-tab active" onclick="showScreen('inicio',this)">
-    <i class="ti ti-home"></i>Inicio
-  </div>
-  <div class="nav-tab" onclick="showScreen('menu',this)">
-    <i class="ti ti-calendar-week"></i>Menu
-  </div>
-  <div class="nav-tab" onclick="showScreen('compras',this)">
-    <i class="ti ti-shopping-cart"></i>Compras
-  </div>
-  <div class="nav-tab" onclick="showScreen('asistente',this)">
-    <i class="ti ti-sparkles"></i>Asistente
-  </div>
-</div>
-
-<!-- INICIO -->
-<div class="screen active" id="s-inicio">
-  <div class="hero-card">
-    <div class="hero-greeting">Buenos dias</div>
-    <div class="hero-name">Tu plan de hoy <i class="ti ti-flame" style="font-size:18px;color:#D85A30;vertical-align:-3px"></i></div>
-    <div class="stats-grid">
-      <div class="stat-box"><div class="stat-val">1,941</div><div class="stat-lbl">kcal objetivo</div></div>
-      <div class="stat-box"><div class="stat-val">152 g</div><div class="stat-lbl">proteina/dia</div></div>
-      <div class="stat-box"><div class="stat-val">187 g</div><div class="stat-lbl">carbohidratos</div></div>
-      <div class="stat-box"><div class="stat-val">63 g</div><div class="stat-lbl">grasas</div></div>
-    </div>
-  </div>
-
-  <div class="sec-title">Macros diarios</div>
-  <div class="macro-card">
-    <div class="macro-row">
-      <div class="macro-ico ico-p"><i class="ti ti-meat"></i></div>
-      <div class="macro-info">
-        <div class="macro-labels"><span class="macro-name">Proteina</span><span class="macro-num">152 g &middot; 31%</span></div>
-        <div class="mbar"><div class="mbar-fill fill-p"></div></div>
+  <div class="topbar-row">
+    <div class="app-logo">
+      <div class="logo-dot">N</div>
+      <div>
+        <div class="app-name">NutriArq</div>
+        <div class="app-sub">Recomposicion corporal</div>
       </div>
     </div>
-    <div class="macro-row">
-      <div class="macro-ico ico-c"><i class="ti ti-bread"></i></div>
-      <div class="macro-info">
-        <div class="macro-labels"><span class="macro-name">Carbohidratos</span><span class="macro-num">187 g &middot; 39%</span></div>
-        <div class="mbar"><div class="mbar-fill fill-c"></div></div>
+    <div class="topbar-right"><i class="ti ti-user"></i></div>
+  </div>
+</div>
+
+<div class="screens">
+
+  <!-- INICIO -->
+  <div class="screen active" id="s-inicio">
+    <div class="greeting-bar">
+      <div class="greeting-day" id="greetDay">Hoy</div>
+      <div class="greeting-title">Hola, <span>Jimena</span></div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card accent">
+        <div class="stat-val green">1,941<span class="stat-unit">kcal</span></div>
+        <div class="stat-lbl">Objetivo diario</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">152<span class="stat-unit">g</span></div>
+        <div class="stat-lbl">Proteina objetivo</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">187<span class="stat-unit">g</span></div>
+        <div class="stat-lbl">Carbohidratos</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">63<span class="stat-unit">g</span></div>
+        <div class="stat-lbl">Grasas saludables</div>
       </div>
     </div>
-    <div class="macro-row">
-      <div class="macro-ico ico-g"><i class="ti ti-droplet"></i></div>
-      <div class="macro-info">
-        <div class="macro-labels"><span class="macro-name">Grasas saludables</span><span class="macro-num">63 g &middot; 30%</span></div>
-        <div class="mbar"><div class="mbar-fill fill-g"></div></div>
+
+    <div class="section-header"><span class="section-title">Macros</span></div>
+    <div class="macro-bar-card">
+      <div class="macro-row">
+        <div class="macro-ico m-p"><i class="ti ti-meat"></i></div>
+        <div class="macro-data">
+          <div class="macro-top"><span class="macro-name">Proteina</span><span class="macro-num">152g · 31%</span></div>
+          <div class="mbar"><div class="mbar-fill fp"></div></div>
+        </div>
+      </div>
+      <div class="macro-row">
+        <div class="macro-ico m-c"><i class="ti ti-bread"></i></div>
+        <div class="macro-data">
+          <div class="macro-top"><span class="macro-name">Carbohidratos</span><span class="macro-num">187g · 39%</span></div>
+          <div class="mbar"><div class="mbar-fill fc"></div></div>
+        </div>
+      </div>
+      <div class="macro-row">
+        <div class="macro-ico m-g"><i class="ti ti-droplet"></i></div>
+        <div class="macro-data">
+          <div class="macro-top"><span class="macro-name">Grasas</span><span class="macro-num">63g · 30%</span></div>
+          <div class="mbar"><div class="mbar-fill fg"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="today-label">
+      <span class="section-title">Menu de hoy</span>
+      <span class="today-tag" id="todayTag">Lunes</span>
+    </div>
+    <div class="meal-list-card" id="todayMeals"></div>
+  </div>
+
+  <!-- MENU -->
+  <div class="screen" id="s-menu">
+    <div class="day-scroll" id="dayScroll"></div>
+    <div class="day-info-bar" style="margin-top:0">
+      <span class="day-ctx-txt" id="dayCtx"></span>
+      <span class="day-kcal-txt" id="dayKcal"></span>
+    </div>
+    <div id="menuContent"></div>
+  </div>
+
+  <!-- COMPRAS -->
+  <div class="screen" id="s-compras">
+    <div class="shop-top">
+      <div class="search-box">
+        <i class="ti ti-search"></i>
+        <input type="text" placeholder="Buscar ingrediente..." oninput="filterShop(this.value)" id="shopSearch">
+      </div>
+      <div class="cat-row" id="catRow">
+        <div class="cat-chip active" onclick="filterCat('todos',this)"><i class="ti ti-stack-2"></i>Todos</div>
+        <div class="cat-chip" onclick="filterCat('proteinas',this)"><i class="ti ti-meat"></i>Proteinas</div>
+        <div class="cat-chip" onclick="filterCat('frutas',this)"><i class="ti ti-apple"></i>Frutas</div>
+        <div class="cat-chip" onclick="filterCat('verduras',this)"><i class="ti ti-plant"></i>Verduras</div>
+        <div class="cat-chip" onclick="filterCat('carbos',this)"><i class="ti ti-bread"></i>Carbos</div>
+        <div class="cat-chip" onclick="filterCat('grasas',this)"><i class="ti ti-droplet"></i>Grasas</div>
+        <div class="cat-chip" onclick="filterCat('snacks',this)"><i class="ti ti-package"></i>Snacks</div>
+      </div>
+      <div class="prog-bar-wrap">
+        <div class="prog-info"><span id="progTxt">0 de 42 comprados</span><span id="progPct">0%</span></div>
+        <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+      </div>
+    </div>
+    <div class="shop-content" id="shopContent"></div>
+    <div class="reset-btn" onclick="clearShop()"><i class="ti ti-refresh" style="font-size:16px"></i> Reiniciar lista</div>
+  </div>
+
+  <!-- ASISTENTE -->
+  <div class="screen" id="s-asistente">
+    <div class="ai-wrap">
+      <div class="ai-header">
+        <div class="ai-badge"><i class="ti ti-sparkles" style="font-size:13px"></i> IA Nutricional</div>
+        <div class="ai-title">Tu asistente</div>
+        <div class="ai-sub">Preguntame sobre tu plan, que comiste, o pide cambios en el menu.</div>
+      </div>
+      <div class="ai-chips" id="aiChips">
+        <div class="ai-chip" onclick="useSuggestion(this)">Comi algo extra hoy</div>
+        <div class="ai-chip" onclick="useSuggestion(this)">Cambia el almuerzo del jueves</div>
+        <div class="ai-chip" onclick="useSuggestion(this)">Opcion rapida para entrega</div>
+        <div class="ai-chip" onclick="useSuggestion(this)">Como maximizo mis gluteos?</div>
+      </div>
+      <div class="ai-messages" id="aiMessages"></div>
+      <div class="ai-input-wrap">
+        <input type="text" id="aiInput" placeholder="Escribe aqui..." onkeydown="if(event.key==='Enter'&&!event.shiftKey)sendAI()">
+        <button class="ai-send" id="aiSend" onclick="sendAI()"><i class="ti ti-send"></i></button>
       </div>
     </div>
   </div>
 
-  <div class="sec-title">Menu de hoy &mdash; Lunes</div>
-  <div class="today-card">
-    <div class="today-head">
-      <span class="today-dayname">Lunes &middot; Universidad 10am</span>
-      <span class="today-kcal">1,905 kcal</span>
-    </div>
-    <div id="today-meals"></div>
-  </div>
 </div>
 
-<!-- MENU -->
-<div class="screen" id="s-menu">
-  <div class="day-scroll" id="dayScroll"></div>
-  <div class="day-ctx" id="dayCtx"></div>
-  <div id="menuContent"></div>
-</div>
-
-<!-- COMPRAS -->
-<div class="screen" id="s-compras">
-  <div class="search-wrap">
-    <i class="ti ti-search"></i>
-    <input type="text" placeholder="Buscar ingrediente..." oninput="filterShop(this.value)">
-  </div>
-  <div class="cat-scroll" id="catScroll">
-    <div class="cat-chip active" onclick="filterCat('todos',this)"><i class="ti ti-stack-2"></i>Todos</div>
-    <div class="cat-chip" onclick="filterCat('proteinas',this)"><i class="ti ti-meat"></i>Proteinas</div>
-    <div class="cat-chip" onclick="filterCat('frutas',this)"><i class="ti ti-apple"></i>Frutas</div>
-    <div class="cat-chip" onclick="filterCat('verduras',this)"><i class="ti ti-plant"></i>Verduras</div>
-    <div class="cat-chip" onclick="filterCat('carbos',this)"><i class="ti ti-bread"></i>Carbos</div>
-    <div class="cat-chip" onclick="filterCat('grasas',this)"><i class="ti ti-droplet"></i>Grasas</div>
-    <div class="cat-chip" onclick="filterCat('snacks',this)"><i class="ti ti-package"></i>Snacks</div>
-  </div>
-  <div class="prog-wrap">
-    <div class="prog-info"><span id="prog-text">0 de 42 comprados</span><span id="prog-pct">0%</span></div>
-    <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
-  </div>
-  <div id="shopContent"></div>
-  <button class="reset-btn" onclick="clearAll()"><i class="ti ti-refresh"></i> Reiniciar lista</button>
-</div>
-
-<!-- ASISTENTE IA -->
-<div class="screen" id="s-asistente">
-  <div class="ai-intro">
-    <div class="ai-intro-ico"><i class="ti ti-sparkles"></i></div>
-    <div class="ai-intro-title">Tu asistente nutricional</div>
-    <div class="ai-intro-sub">Cuentame que comiste de mas, pide cambiar una comida, o consulta cualquier duda sobre tu plan.</div>
-  </div>
-
-  <div class="ai-suggestions" id="aiSuggestions">
-    <div class="ai-chip" onclick="sendSuggestion(this)">Comi algo extra hoy, ¿que ajusto?</div>
-    <div class="ai-chip" onclick="sendSuggestion(this)">Quiero cambiar el almuerzo del jueves</div>
-    <div class="ai-chip" onclick="sendSuggestion(this)">No tengo tiempo, dame una opcion rapida</div>
-    <div class="ai-chip" onclick="sendSuggestion(this)">¿Por que tanta proteina?</div>
-  </div>
-
-  <div class="ai-chat" id="aiChat"></div>
-
-  <div class="ai-input-bar">
-    <input type="text" id="aiInput" placeholder="Escribe tu mensaje..." onkeydown="if(event.key==='Enter')sendMessage()">
-    <button class="ai-send-btn" onclick="sendMessage()" id="aiSendBtn"><i class="ti ti-send"></i></button>
-  </div>
+<!-- NAV -->
+<div class="nav">
+  <div class="nav-tab active" onclick="showScreen('inicio',this)"><i class="ti ti-home"></i>Inicio</div>
+  <div class="nav-tab" onclick="showScreen('menu',this)"><i class="ti ti-calendar-week"></i>Menu</div>
+  <div class="nav-tab" onclick="showScreen('compras',this)"><i class="ti ti-shopping-cart"></i>Compras</div>
+  <div class="nav-tab" onclick="showScreen('asistente',this)"><i class="ti ti-sparkles"></i>Asistente</div>
 </div>
 
 <!-- MODAL -->
-<div class="modal-bg" id="modal" onclick="closeModal(event)">
+<div class="modal-bg" id="modal" onclick="if(event.target===this)closeModal()">
   <div class="modal-sheet">
     <div class="modal-handle"></div>
     <div class="modal-head">
-      <div class="modal-mtype" id="m-type"></div>
-      <div class="modal-mname" id="m-name"></div>
+      <div class="modal-mtype" id="mType"></div>
+      <div class="modal-mname" id="mName"></div>
     </div>
     <div class="modal-body">
       <div class="modal-sec">Ingredientes</div>
-      <div id="m-ings"></div>
-      <div class="badge-row" id="m-badges"></div>
+      <div id="mIngs"></div>
+      <div class="modal-badges" id="mBadges"></div>
     </div>
-    <button class="modal-close" onclick="document.getElementById('modal').classList.remove('open')">Cerrar</button>
+    <button class="modal-close" onclick="closeModal()">Cerrar</button>
   </div>
 </div>
 
 <script>
+// ── DATOS ────────────────────────────────────────────────────────────────────
 var DAYS=[
-  {name:'Lunes',ctx:'Sale 10am - Taper preparado la noche anterior',kcal:'1,905',meals:[
-    {ico:'ti-egg-fried',type:'Desayuno - 8:00 am',name:'Tortilla de claras con quinua y palta',prot:'38g',kcal:'480 kcal',time:'12 min',ings:['Claras de huevo','Huevo entero','Quinua cocida','Palta','Tomate cherry','Aceite de oliva'],qtys:['6 claras','1 unid','80g','1/2 (70g)','6 unid','1 cdta']},
-    {ico:'ti-container',type:'Almuerzo - 1:00 pm',name:'Arroz con pollo a la curcuma y ensalada criolla',prot:'45g',kcal:'580 kcal',time:'25 min',ings:['Pechuga de pollo','Arroz cocido','Brocoli al vapor','Cebolla morada','Limon','Aceite de oliva'],qtys:['180g','150g','100g','1/2 unid','1 unid','1 cda']},
+  {name:'Lunes',ctx:'Sale 10am - Taper noche anterior',kcal:'1,905',meals:[
+    {ico:'ti-egg-fried',type:'Desayuno - 8:00 am',name:'Tortilla de claras con quinua, palta y espinaca',prot:'38g',kcal:'480 kcal',time:'12 min',ings:['Claras de huevo','Huevo entero','Quinua cocida','Palta','Espinaca salteada','Aceite de oliva'],qtys:['6 claras','1 unid','80g','1/2 unid','50g','1 cdta']},
+    {ico:'ti-container',type:'Almuerzo taper - 1:00 pm',name:'Arroz con pollo a la curcuma y brocoli',prot:'45g',kcal:'575 kcal',time:'25 min',ings:['Pechuga de pollo','Arroz cocido','Brocoli al vapor','Cebolla morada','Limon','Aceite de oliva','Curcuma y ajo'],qtys:['180g','150g','100g','1/2 unid','1 unid','1 cda','al gusto']},
     {ico:'ti-backpack',type:'Snack - 4:00 pm',name:'Almendras + atun en lata + galletas arroz',prot:'26g',kcal:'320 kcal',time:'0 min',ings:['Almendras','Atun al agua','Galletas de arroz'],qtys:['25g','90g','20g']},
-    {ico:'ti-star',type:'Postre',name:'Mousse de chocolate negro con platano',prot:'8g',kcal:'160 kcal',time:'5 min',ings:['Platano congelado','Cacao puro','Yogur griego'],qtys:['1 unid','1 cda','2 cdas']},
-    {ico:'ti-fish',type:'Cena - 8:00 pm',name:'Salmon al limon con camote y espinacas salteadas',prot:'42g',kcal:'365 kcal',time:'18 min',ings:['Salmon filete','Camote mediano','Espinacas','Ajo','Limon','Aceite oliva'],qtys:['160g','150g','100g','2 dientes','1 unid','1 cdta']}
+    {ico:'ti-star',type:'Postre',name:'Mousse de chocolate con platano y yogur',prot:'8g',kcal:'160 kcal',time:'5 min',ings:['Platano congelado','Cacao puro','Yogur griego'],qtys:['1 unid','1 cda','2 cdas']},
+    {ico:'ti-fish',type:'Cena - 8:00 pm',name:'Salmon al limon con camote y espinacas',prot:'42g',kcal:'365 kcal',time:'18 min',ings:['Salmon filete','Camote mediano','Espinacas','Ajo','Limon','Aceite oliva'],qtys:['160g','150g','100g','2 dientes','1 unid','1 cdta']}
   ]},
-  {name:'Martes',ctx:'Dia flexible - Posible entreno',kcal:'1,920',meals:[
-    {ico:'ti-bowl',type:'Desayuno - 7:30 am',name:'Bowl de avena proteica con frutos rojos y huevo',prot:'35g',kcal:'490 kcal',time:'10 min',ings:['Avena en hojuelas','Leche evaporada light','Huevos pasados','Fresas','Platano','Canela'],qtys:['60g','100ml','3 unid','100g','1/2 unid','1 cdta']},
-    {ico:'ti-meat',type:'Almuerzo - 1:00 pm',name:'Lomo de res a la plancha con lentejas y zanahoria',prot:'48g',kcal:'560 kcal',time:'20 min',ings:['Lomo magro','Lentejas cocidas','Zanahoria','Ajo','Aceite oliva','Perejil'],qtys:['180g','150g','100g','al gusto','1 cda','al gusto']},
-    {ico:'ti-egg',type:'Snack - 4:30 pm',name:'Huevos duros + tostadas de maiz',prot:'20g',kcal:'280 kcal',time:'0 min',ings:['Huevos duros','Galletas maiz'],qtys:['2 unid','4 galletas']},
+  {name:'Martes',ctx:'Dia flexible - Posible entreno',kcal:'1,915',meals:[
+    {ico:'ti-bowl',type:'Desayuno - 7:30 am',name:'Bowl de avena con yogur griego, fresas y mani',prot:'34g',kcal:'490 kcal',time:'8 min',ings:['Avena en hojuelas','Leche evaporada light','Yogur griego natural','Fresas en trozos','Platano en rodajas','Mani natural','Canela'],qtys:['60g','100ml','80g','80g','1/2 unid','15g','1 cdta']},
+    {ico:'ti-meat',type:'Almuerzo - 1:00 pm',name:'Lomo de res a la plancha con lentejas y zanahoria',prot:'48g',kcal:'560 kcal',time:'20 min',ings:['Lomo magro','Lentejas cocidas','Zanahoria cocida','Ajo','Aceite oliva','Perejil'],qtys:['180g','150g','100g','al gusto','1 cda','al gusto']},
+    {ico:'ti-nut',type:'Snack - 4:30 pm',name:'Queso cottage con mani y arandanos secos',prot:'22g',kcal:'270 kcal',time:'1 min',ings:['Queso cottage','Mani natural sin sal','Arandanos secos'],qtys:['150g','20g','15g']},
     {ico:'ti-star',type:'Postre',name:'Gelatina de maracuya natural',prot:'5g',kcal:'85 kcal',time:'5 min',ings:['Gelatina sin sabor','Jugo maracuya','Miel'],qtys:['7g','100ml','1 cdta']},
-    {ico:'ti-drumstick',type:'Cena - 8:00 pm',name:'Pechuga al horno con papa y ensalada verde',prot:'46g',kcal:'505 kcal',time:'25 min',ings:['Pechuga pollo','Papa amarilla','Lechuga mixta','Pepino','Limon + mostaza'],qtys:['200g','150g','80g','1/2 unid','aderezo']}
+    {ico:'ti-drumstick',type:'Cena - 8:00 pm',name:'Pechuga al horno con papa amarilla y ensalada',prot:'46g',kcal:'505 kcal',time:'25 min',ings:['Pechuga pollo','Papa amarilla','Lechuga mixta','Pepino','Palta en rodajas','Limon y aceite oliva'],qtys:['200g','150g','80g','1/2 unid','1/4 unid','aderezo']}
   ]},
-  {name:'Miercoles',ctx:'Sale 10am - Taper preparado la noche anterior',kcal:'1,895',meals:[
-    {ico:'ti-egg-fried',type:'Desayuno - 8:30 am',name:'Tostadas de pan integral con huevo y queso fresco',prot:'36g',kcal:'480 kcal',time:'8 min',ings:['Pan integral de molde','Huevos enteros','Queso fresco','Tomate','Aceite oliva'],qtys:['2 rebanadas','3 unid','50g','1 unid','1 cdta']},
-    {ico:'ti-salad',type:'Almuerzo taper - 1:00 pm',name:'Quinua con atun, palta y tomate cherry',prot:'46g',kcal:'540 kcal',time:'5 min montaje',ings:['Quinua cocida','Atun en agua','Palta madura','Tomate cherry','Maiz desgranado','Limon + oliva'],qtys:['160g','2 latas','1/2 unid','100g','50g','aderezo']},
+  {name:'Miercoles',ctx:'Sale 10am - Taper noche anterior',kcal:'1,895',meals:[
+    {ico:'ti-egg-fried',type:'Desayuno - 8:30 am',name:'Tostadas con huevo revuelto, palta y queso fresco',prot:'36g',kcal:'480 kcal',time:'8 min',ings:['Pan integral de molde','Huevos enteros','Queso fresco','Palta','Aceite oliva','Oregano seco'],qtys:['2 rebanadas','3 unid','40g','1/4 unid','1 cdta','al gusto']},
+    {ico:'ti-salad',type:'Almuerzo taper - 1:00 pm',name:'Quinua con atun, palta, pepino y maiz',prot:'46g',kcal:'535 kcal',time:'5 min montaje',ings:['Quinua cocida','Atun en agua','Palta madura','Pepino en cubos','Maiz desgranado','Limon y aceite oliva'],qtys:['160g','2 latas','1/2 unid','1/2 unid','50g','aderezo']},
     {ico:'ti-nut',type:'Snack - 4:00 pm',name:'Nueces + mani + arandanos secos',prot:'10g',kcal:'300 kcal',time:'0 min',ings:['Nueces','Mani sin sal','Arandanos secos'],qtys:['20g','20g','15g']},
-    {ico:'ti-apple',type:'Postre',name:'Manzana al horno con canela',prot:'2g',kcal:'140 kcal',time:'20 min horno',ings:['Manzana','Miel','Canela','Avena'],qtys:['1 unid','1 cdta','al gusto','1 cda']},
+    {ico:'ti-apple',type:'Postre',name:'Manzana al horno con canela y avena',prot:'2g',kcal:'140 kcal',time:'20 min horno',ings:['Manzana','Miel','Canela en polvo','Avena'],qtys:['1 unid','1 cdta','al gusto','1 cda']},
     {ico:'ti-fish',type:'Cena - 8:30 pm',name:'Tilapia al ajo con frijoles negros y arroz integral',prot:'56g',kcal:'535 kcal',time:'20 min',ings:['Filete tilapia','Frijoles negros','Arroz integral','Ajo','Limon','Culantro'],qtys:['200g','120g','100g','3 dientes','1 unid','al gusto']}
   ]},
   {name:'Jueves',ctx:'Dia libre - Entreno tarde',kcal:'1,910',meals:[
-    {ico:'ti-pancakes',type:'Desayuno - 8:00 am',name:'Pancakes proteicos de platano y huevo',prot:'40g',kcal:'500 kcal',time:'15 min',ings:['Platano maduro','Huevos enteros','Avena molida','Queso cottage','Fresas frescas'],qtys:['1 grande','3 unid','40g','80g','80g encima']},
-    {ico:'ti-pot',type:'Almuerzo - 1:30 pm',name:'Estofado de pollo con papa amarilla y arroz',prot:'44g',kcal:'570 kcal',time:'30 min',ings:['Muslo pollo sin piel','Papa amarilla','Arroz cocido','Tomate + cebolla','Culantro + comino'],qtys:['200g','180g','120g','guiso','al gusto']},
-    {ico:'ti-cup',type:'Snack - 4:30 pm',name:'Yogur griego con nueces y miel',prot:'17g',kcal:'270 kcal',time:'1 min',ings:['Yogur griego natural','Nueces','Miel'],qtys:['150g','15g','1 cdta']},
+    {ico:'ti-egg-fried',type:'Desayuno - 8:00 am',name:'Omelette de claras con champinones, espinaca y queso',prot:'40g',kcal:'390 kcal',time:'10 min',ings:['Claras de huevo','Huevo entero','Champinones','Espinacas','Queso fresco','Aceite de oliva','Ajo'],qtys:['5 claras','1 unid','100g','60g','50g','1 cdta','al gusto']},
+    {ico:'ti-pot',type:'Almuerzo - 1:30 pm',name:'Estofado de pollo con papa amarilla y arroz',prot:'44g',kcal:'570 kcal',time:'30 min',ings:['Muslo pollo sin piel','Papa amarilla','Arroz cocido','Cebolla','Aji amarillo','Culantro y comino','Aceite oliva'],qtys:['200g','180g','120g','1/2 unid','1/2 unid','al gusto','1 cda']},
+    {ico:'ti-cup',type:'Snack - 4:30 pm',name:'Yogur griego con nueces y miel',prot:'17g',kcal:'270 kcal',time:'1 min',ings:['Yogur griego natural','Nueces','Miel de abeja'],qtys:['150g','15g','1 cdta']},
     {ico:'ti-ice-cream',type:'Postre',name:'Helado de lucuma con cacao',prot:'3g',kcal:'120 kcal',time:'5 min + congelar',ings:['Pulpa lucuma congelada','Cacao puro','Leche evaporada'],qtys:['100g','1 cda','1 cda']},
-    {ico:'ti-egg-fried',type:'Cena - 8:00 pm',name:'Omelette de claras con champinones y espinaca',prot:'44g',kcal:'320 kcal',time:'10 min',ings:['Claras de huevo','Champinones','Espinacas','Queso fresco','Ajo + cebolla'],qtys:['7 claras','100g','80g','40g','al gusto']}
+    {ico:'ti-drumstick',type:'Cena - 8:00 pm',name:'Pechuga a la plancha con camote y ensalada',prot:'46g',kcal:'480 kcal',time:'20 min',ings:['Pechuga pollo','Camote sancochado','Lechuga romana','Pepino en rodajas','Aceitunas negras','Limon y oliva'],qtys:['200g','150g','80g','1/2 unid','6 unid','aderezo']}
   ]},
   {name:'Viernes',ctx:'Sale 5:00 pm - Mas tiempo en casa',kcal:'1,930',meals:[
-    {ico:'ti-smoothie',type:'Desayuno - 9:00 am',name:'Smoothie bowl de proteina natural',prot:'38g',kcal:'495 kcal',time:'8 min',ings:['Platano congelado','Leche evaporada light','Huevos cocidos (encima)','Granola artesanal','Fresas','Chia','Miel'],qtys:['1 unid','150ml','3 unid','30g','100g','1 cda','1 cdta']},
-    {ico:'ti-soup',type:'Almuerzo casa - 1:00 pm',name:'Seco de carne magra con frijoles y yuca',prot:'50g',kcal:'590 kcal',time:'35 min',ings:['Carne magra res','Frijoles canario','Yuca cocida','Culantro + aji','Chicha de jora'],qtys:['200g','150g','120g','guiso','50ml']},
-    {ico:'ti-cheese',type:'Snack noche - 7:00 pm',name:'Queso fresco + galletas de arroz',prot:'12g',kcal:'220 kcal',time:'1 min',ings:['Queso fresco','Galletas de arroz'],qtys:['50g','4 galletas']},
-    {ico:'ti-candy',type:'Postre',name:'Trufas de mani y datil',prot:'6g',kcal:'180 kcal',time:'5 min',ings:['Datiles sin semilla','Mani natural','Cacao en polvo'],qtys:['4 unid','2 cdas','al gusto']},
-    {ico:'ti-drumstick',type:'Cena - 10:00 pm',name:'Pollo al limon con ensalada mediterranea',prot:'46g',kcal:'445 kcal',time:'15 min',ings:['Pechuga pollo','Pepino','Tomate','Cebolla morada','Aceitunas negras','Limon + oliva'],qtys:['180g','1 unid','1 unid','1/4 unid','6 unid','aderezo']}
+    {ico:'ti-bowl',type:'Desayuno - 9:00 am',name:'Bowl de avena con yogur griego, mango y granola',prot:'35g',kcal:'490 kcal',time:'8 min',ings:['Avena en hojuelas','Leche evaporada light','Yogur griego','Mango en trozos','Granola artesanal','Chia','Miel'],qtys:['60g','100ml','80g','80g','25g','1 cda','1 cdta']},
+    {ico:'ti-soup',type:'Almuerzo casa - 1:00 pm',name:'Seco de carne magra con frijoles y yuca',prot:'50g',kcal:'590 kcal',time:'35 min',ings:['Carne magra res','Frijoles canario','Yuca cocida','Cebolla','Culantro y aji amarillo','Chicha de jora','Aceite oliva'],qtys:['200g','150g','120g','1/2 unid','guiso','50ml','1 cda']},
+    {ico:'ti-cheese',type:'Snack noche - 7:00 pm',name:'Queso fresco + galletas de arroz + mani',prot:'14g',kcal:'230 kcal',time:'1 min',ings:['Queso fresco','Galletas de arroz','Mani natural'],qtys:['50g','4 galletas','15g']},
+    {ico:'ti-candy',type:'Postre',name:'Trufas de mani y datil con cacao',prot:'6g',kcal:'180 kcal',time:'5 min',ings:['Datiles sin semilla','Mani natural','Cacao en polvo'],qtys:['4 unid','2 cdas','al gusto']},
+    {ico:'ti-drumstick',type:'Cena - 10:00 pm',name:'Pollo al limon con lechuga, pepino y aceitunas',prot:'46g',kcal:'440 kcal',time:'15 min',ings:['Pechuga pollo','Lechuga mixta','Pepino','Cebolla morada','Aceitunas negras','Limon y aceite oliva'],qtys:['180g','80g','1 unid','1/4 unid','6 unid','aderezo']}
   ]},
   {name:'Sabado',ctx:'Sale 1pm - Manana libre - Entreno AM',kcal:'1,980',meals:[
-    {ico:'ti-egg-fried',type:'Desayuno especial - 9:00 am',name:'Eggs Benedict saludable con jamon y palta',prot:'42g',kcal:'520 kcal',time:'15 min',ings:['Huevos pochados','Jamon serrano bajo grasa','Pan integral tostado','Palta','Tomate en rodajas'],qtys:['3 unid','80g','2 rebanadas','1/2 unid','1 unid']},
-    {ico:'ti-salad',type:'Almuerzo taper - 2:30 pm',name:'Ensalada Cesar de pollo a la parrilla',prot:'50g',kcal:'490 kcal',time:'10 min montaje',ings:['Pechuga a la parrilla','Lechuga romana','Queso parmesano','Aderezo Cesar light','Tomate cherry','Aceitunas'],qtys:['200g','100g','20g','2 cdas','80g','6 unid']},
+    {ico:'ti-egg-fried',type:'Desayuno especial - 9:00 am',name:'Tostadas con huevo pochado, jamon, palta y espinaca',prot:'42g',kcal:'520 kcal',time:'15 min',ings:['Huevos pochados','Jamon serrano bajo grasa','Pan integral tostado','Palta','Espinaca fresca','Limon y pimienta'],qtys:['3 unid','80g','2 rebanadas','1/2 unid','40g','al gusto']},
+    {ico:'ti-salad',type:'Almuerzo taper - 2:30 pm',name:'Ensalada Cesar de pollo a la parrilla',prot:'50g',kcal:'490 kcal',time:'10 min montaje',ings:['Pechuga a la parrilla','Lechuga romana','Queso parmesano rallado','Aderezo Cesar light','Pepino en rodajas','Aceitunas'],qtys:['200g','100g','20g','2 cdas','1/2 unid','6 unid']},
     {ico:'ti-plant',type:'Snack - 5:30 pm',name:'Edamame salado + mani natural',prot:'16g',kcal:'280 kcal',time:'2 min micro',ings:['Edamame congelado','Mani natural'],qtys:['100g','20g']},
     {ico:'ti-cup',type:'Postre',name:'Panna cotta de leche evaporada y maracuya',prot:'7g',kcal:'130 kcal',time:'5 min + 3h refrig.',ings:['Leche evaporada light','Gelatina sin sabor','Jugo maracuya','Stevia'],qtys:['150ml','7g','2 unid','al gusto']},
-    {ico:'ti-fish',type:'Cena - 8:30 pm',name:'Ceviche de tilapia con camote y choclo',prot:'40g',kcal:'560 kcal',time:'15 min',ings:['Tilapia fresca','Limon (jugo)','Cebolla morada','Aji limo','Camote sancochado','Choclo'],qtys:['180g','6 unid','1/2 unid','1/4 unid','150g','1/2 mazorca']}
+    {ico:'ti-fish',type:'Cena - 8:30 pm',name:'Ceviche de tilapia con camote y choclo',prot:'40g',kcal:'560 kcal',time:'15 min',ings:['Tilapia fresca','Limon jugo','Cebolla morada','Aji limo','Culantro','Camote sancochado','Choclo'],qtys:['180g','6 unid','1/2 unid','1/4 unid','al gusto','150g','1/2 mazorca']}
   ]},
   {name:'Domingo',ctx:'Dia en casa - Meal prep - Recarga de carbos',kcal:'2,050',meals:[
-    {ico:'ti-bread',type:'Desayuno brunch - 10:00 am',name:'French toast proteico con fresas, miel y queso cottage',prot:'42g',kcal:'530 kcal',time:'15 min',ings:['Pan integral de molde','Huevos enteros','Leche evaporada light','Queso cottage','Fresas frescas','Miel de abeja','Canela + vainilla'],qtys:['3 rebanadas','3 unid','80ml','100g encima','120g','1 cda','al gusto']},
-    {ico:'ti-meat',type:'Almuerzo dominical - 2:00 pm',name:'Lomo saltado de pollo fit con papas al horno',prot:'52g',kcal:'610 kcal',time:'25 min',ings:['Pechuga en tiras','Papa amarilla horneada','Cebolla + tomate + aji','Soya baja sodio','Vinagre tinto','Culantro'],qtys:['220g','200g','saltado','1 cda','1 cdta','al gusto']},
-    {ico:'ti-cup',type:'Snack tarde - 5:00 pm',name:'Yogur griego con granola y mango',prot:'20g',kcal:'310 kcal',time:'2 min',ings:['Yogur griego natural','Granola artesanal','Mango en trozos'],qtys:['180g','25g','80g']},
-    {ico:'ti-cookie',type:'Postre',name:'Brownie de frijoles negros y cacao',prot:'8g',kcal:'150 kcal',time:'25 min horno',ings:['Frijoles negros (lata)','Cacao en polvo','Huevos','Miel','Vainilla'],qtys:['1 lata','3 cdas','2 unid','2 cdas','1 cdta']},
+    {ico:'ti-bread',type:'Desayuno brunch - 10:00 am',name:'French toast con queso cottage, fresas y miel',prot:'38g',kcal:'520 kcal',time:'15 min',ings:['Pan integral de molde','Leche evaporada light','Queso cottage encima','Fresas frescas en laminas','Miel de abeja','Canela y vainilla','Aceite de coco'],qtys:['3 rebanadas','80ml','120g','120g','1 cda','al gusto','1/2 cdta']},
+    {ico:'ti-meat',type:'Almuerzo dominical - 2:00 pm',name:'Lomo saltado de pollo fit con papas al horno',prot:'52g',kcal:'610 kcal',time:'25 min',ings:['Pechuga en tiras','Papa amarilla horneada','Cebolla','Aji amarillo','Soya baja sodio','Vinagre tinto','Culantro'],qtys:['220g','200g','1 unid','1/2 unid','1 cda','1 cdta','al gusto']},
+    {ico:'ti-cup',type:'Snack tarde - 5:00 pm',name:'Yogur griego con granola, mango y chia',prot:'20g',kcal:'310 kcal',time:'2 min',ings:['Yogur griego natural','Granola artesanal','Mango en trozos','Semillas de chia'],qtys:['180g','25g','80g','1 cdta']},
+    {ico:'ti-cookie',type:'Postre',name:'Trufas de mani, datil y cacao sin horno',prot:'7g',kcal:'160 kcal',time:'10 min',ings:['Datiles sin semilla','Mani natural','Cacao en polvo','Coco rallado sin azucar'],qtys:['6 unid','3 cdas','2 cdas','1 cda']},
     {ico:'ti-soup',type:'Cena - 8:00 pm',name:'Sopa de quinua con pollo desmenuzado y verduras',prot:'39g',kcal:'440 kcal',time:'30 min',ings:['Pechuga desmenuzada','Quinua cruda','Zanahoria','Apio','Cebolla','Caldo pollo casero'],qtys:['150g','60g','1 unid','2 ramas','1/2 unid','500ml']}
   ]}
 ];
 
 var SHOP={
   proteinas:{label:'Proteinas',items:[
-    {n:'Pechuga de pollo Bell\'s',q:'1 kg'},
+    {n:"Pechuga de pollo Bell's",q:'1 kg'},
     {n:'Filete de res magro',q:'400g'},
     {n:'Salmon o tilapia fresca',q:'500g'},
-    {n:'Atun Primor en agua',q:'x 6 latas'},
-    {n:'Huevos San Fernando XL',q:'carton x 30'},
-    {n:'Yogur griego Gloria natural',q:'x 6 unid'},
+    {n:'Atun Primor en agua',q:'x6 latas'},
+    {n:'Huevos San Fernando XL',q:'carton x18'},
+    {n:'Yogur griego Gloria natural',q:'x6 unid'},
     {n:'Queso fresco serrano',q:'400g'},
     {n:'Jamon serrano bajo grasa',q:'200g'},
     {n:'Queso cottage',q:'250g'}
@@ -365,7 +443,6 @@ var SHOP={
     {n:'Maracuya',q:'4 unid'},
     {n:'Mango',q:'2 unid'},
     {n:'Lucuma',q:'3 unid'},
-    {n:'Tomate cherry',q:'300g'},
     {n:'Limones',q:'1 bolsa'}
   ]},
   verduras:{label:'Verduras',items:[
@@ -374,10 +451,10 @@ var SHOP={
     {n:'Lechuga romana',q:'2 unid'},
     {n:'Champinones',q:'250g'},
     {n:'Zanahoria',q:'1 bolsa'},
-    {n:'Tomate',q:'1 kg'},
     {n:'Pepino',q:'4 unid'},
     {n:'Cebolla morada',q:'3 unid'},
-    {n:'Aji amarillo',q:'4 unid'}
+    {n:'Aji amarillo',q:'4 unid'},
+    {n:'Apio',q:'1 atado'}
   ]},
   carbos:{label:'Carbohidratos',items:[
     {n:'Quinua organica Miskikuntur',q:'500g'},
@@ -401,21 +478,35 @@ var SHOP={
   ]},
   snacks:{label:'Snacks y postres',items:[
     {n:'Cacao puro Machu Picchu Foods',q:'200g'},
-    {n:'Gelatina sin sabor',q:'x 4 sobres'},
+    {n:'Gelatina sin sabor',q:'x4 sobres'},
     {n:'Granola artesanal',q:'300g'},
     {n:'Arandanos secos',q:'100g'},
     {n:'Edamame congelado',q:'500g'},
     {n:'Miel de abeja',q:'250g'},
     {n:'Stevia liquida',q:'1 frasco'},
-    {n:'Datiles sin semilla',q:'150g'}
+    {n:'Datiles sin semilla',q:'150g'},
+    {n:'Coco rallado sin azucar',q:'100g'}
   ]}
 };
 
-var checked={};
+// ── ESTADO ───────────────────────────────────────────────────────────────────
+var STORAGE_KEY='nutriarq_shop_v1';
+var checked=loadChecked();
 var currentCat='todos';
 var currentDay=0;
 var searchVal='';
+var aiHistory=[];
+var aiBusy=false;
 
+function loadChecked(){
+  try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}'); }
+  catch(e){ return {}; }
+}
+function saveChecked(){
+  try{ localStorage.setItem(STORAGE_KEY,JSON.stringify(checked)); }catch(e){}
+}
+
+// ── NAV ──────────────────────────────────────────────────────────────────────
 function showScreen(id,el){
   document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active')});
   document.querySelectorAll('.nav-tab').forEach(function(t){t.classList.remove('active')});
@@ -425,11 +516,40 @@ function showScreen(id,el){
   if(id==='compras') renderShop();
 }
 
-function buildDayPills(){
+// ── INICIO ───────────────────────────────────────────────────────────────────
+var DAY_NAMES=['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'];
+var DAY_NAMES_ES=['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'];
+
+function initInicio(){
+  var d=new Date();
+  var dow=d.getDay(); // 0=Dom,1=Lun,...,6=Sab
+  var dayIdx=dow===0?6:dow-1; // convert to DAYS index (0=Lun...6=Dom)
+  var dayName=DAY_NAMES[dow];
+  var hora=d.getHours();
+  var saludo=hora<12?'Buenos dias':hora<19?'Buenas tardes':'Buenas noches';
+  document.getElementById('greetDay').textContent=saludo;
+  document.getElementById('todayTag').textContent=dayName;
+  var day=DAYS[dayIdx];
   var html='';
+  day.meals.forEach(function(m,i){
+    html+='<div class="meal-row" onclick="openModal('+i+','+dayIdx+')">'+
+      '<div class="meal-ico"><i class="ti '+m.ico+'"></i></div>'+
+      '<div class="meal-info">'+
+        '<div class="meal-type-lbl">'+m.type+'</div>'+
+        '<div class="meal-name-lbl">'+m.name+'</div>'+
+      '</div>'+
+      '<div class="meal-prot-badge">'+m.prot+'</div>'+
+    '</div>';
+  });
+  document.getElementById('todayMeals').innerHTML=html;
+}
+
+// ── MENU ─────────────────────────────────────────────────────────────────────
+function buildDayPills(){
   var names=['Lun','Mar','Mie','Jue','Vie','Sab','Dom'];
+  var html='';
   names.forEach(function(n,i){
-    html+='<div class="day-pill'+(i===0?' active':'')+'" onclick="selectDay('+i+',this)">'+n+'</div>';
+    html+='<div class="day-pill'+(i===currentDay?' active':'')+'" onclick="selectDay('+i+',this)">'+n+'</div>';
   });
   document.getElementById('dayScroll').innerHTML=html;
 }
@@ -444,27 +564,52 @@ function selectDay(i,el){
 function renderMenu(i){
   var d=DAYS[i];
   document.getElementById('dayCtx').textContent=d.ctx;
-  var html='<div style="margin:0 12px 10px;background:#fff;border-radius:14px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;border:0.5px solid #E0DDD5"><span style="font-size:14px;font-weight:600;color:#1C1C1A">'+d.name+'</span><span style="font-size:13px;color:#639922;font-weight:600">'+d.kcal+' kcal</span></div>';
-  d.meals.forEach(function(m){
+  document.getElementById('dayKcal').textContent=d.kcal+' kcal';
+  var html='';
+  d.meals.forEach(function(m,mi){
     var ings='';
     m.ings.forEach(function(ing,j){
-      ings+='<div class="ing-item"><span class="ing-name">'+ing+'</span><span class="ing-qty">'+m.qtys[j]+'</span></div>';
+      ings+='<div class="ing-row"><span class="ing-n">'+ing+'</span><span class="ing-q">'+m.qtys[j]+'</span></div>';
     });
-    html+='<div class="meal-card"><div class="mc-head"><span class="mc-type"><i class="ti '+m.ico+'" style="font-size:16px"></i>'+m.type+'</span><span class="mc-prot">'+m.prot+'</span></div><div class="mc-body"><div class="mc-name">'+m.name+'</div>'+ings+'<div class="mc-meta"><span class="mc-meta-item"><i class="ti ti-clock"></i>'+m.time+'</span><span class="mc-meta-item"><i class="ti ti-flame"></i>'+m.kcal+'</span><span class="mc-meta-item" style="color:#639922;font-weight:600"><i class="ti ti-meat"></i>'+m.prot+' prot</span></div></div></div>';
+    html+='<div class="meal-card">'+
+      '<div class="mc-head">'+
+        '<span class="mc-type-txt"><i class="ti '+m.ico+'"></i>'+m.type+'</span>'+
+        '<span class="mc-prot-tag">'+m.prot+'</span>'+
+      '</div>'+
+      '<div class="mc-body">'+
+        '<div class="mc-name">'+m.name+'</div>'+
+        ings+
+        '<div class="mc-footer">'+
+          '<span class="mc-foot-item"><i class="ti ti-clock"></i>'+m.time+'</span>'+
+          '<span class="mc-foot-item"><i class="ti ti-flame"></i>'+m.kcal+'</span>'+
+          '<span class="mc-foot-item hi"><i class="ti ti-meat"></i>'+m.prot+'</span>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
   });
   document.getElementById('menuContent').innerHTML=html;
 }
 
-function renderTodayMeals(){
-  var d=DAYS[0];
-  var html='';
-  d.meals.forEach(function(m){
-    html+='<div class="meal-row" onclick="openModal(\''+m.type+'\',\''+m.name+'\','+JSON.stringify(m.ings)+','+JSON.stringify(m.qtys)+',\''+m.prot+'\',\''+m.kcal+'\',\''+m.time+'\')"><div class="meal-ico"><i class="ti '+m.ico+'"></i></div><div class="meal-info"><div class="meal-type">'+m.type+'</div><div class="meal-name">'+m.name+'</div></div><span class="meal-prot">'+m.prot+'</span></div>';
+// ── MODAL ────────────────────────────────────────────────────────────────────
+function openModal(mi,di){
+  var m=DAYS[di].meals[mi];
+  document.getElementById('mType').textContent=m.type;
+  document.getElementById('mName').textContent=m.name;
+  var ings='';
+  m.ings.forEach(function(ing,j){
+    ings+='<div class="modal-ing"><span class="modal-ing-n">'+ing+'</span><span class="modal-ing-q">'+m.qtys[j]+'</span></div>';
   });
-  document.getElementById('today-meals').innerHTML=html;
+  document.getElementById('mIngs').innerHTML=ings;
+  document.getElementById('mBadges').innerHTML=
+    '<span class="mbadge mbg"><i class="ti ti-meat"></i>'+m.prot+'</span>'+
+    '<span class="mbadge mba"><i class="ti ti-flame"></i>'+m.kcal+'</span>'+
+    '<span class="mbadge mbc"><i class="ti ti-clock"></i>'+m.time+'</span>';
+  document.getElementById('modal').classList.add('open');
 }
+function closeModal(){document.getElementById('modal').classList.remove('open')}
 
-function totalItems(){
+// ── COMPRAS ──────────────────────────────────────────────────────────────────
+function totalShopItems(){
   var t=0;
   Object.keys(SHOP).forEach(function(k){t+=SHOP[k].items.length});
   return t;
@@ -477,51 +622,47 @@ function renderShop(){
     var items=SHOP[cat].items.filter(function(it){
       return !searchVal||it.n.toLowerCase().indexOf(searchVal.toLowerCase())>-1;
     });
-    if(!items.length) return;
+    if(!items.length)return;
     html+='<div class="shop-group"><div class="shop-group-title">'+SHOP[cat].label+'</div><div class="shop-list">';
     items.forEach(function(it){
-      var realJ=SHOP[cat].items.indexOf(it);
-      var key=cat+'_'+realJ;
+      var j=SHOP[cat].items.indexOf(it);
+      var key=cat+'_'+j;
       var done=!!checked[key];
-      html+='<div class="shop-item" data-key="'+key+'" onclick="toggleItem(this,\''+cat+'\','+realJ+')">'+
-        '<div class="shop-check'+(done?' done':'')+'">'+(done?'<i class="ti ti-check"></i>':'')+'</div>'+
-        '<span class="shop-text'+(done?' done':'')+'">'+it.n+'</span>'+
-        '<span class="shop-qty">'+it.q+'</span>'+
+      html+='<div class="shop-item" onclick="toggleShop(\''+cat+'\','+j+',this)">'+
+        '<div class="shop-check'+(done?' done':'')+'">'+
+          (done?'<i class="ti ti-check"></i>':'')+
+        '</div>'+
+        '<span class="shop-item-text'+(done?' done':'')+'">'+it.n+'</span>'+
+        '<span class="shop-item-qty">'+it.q+'</span>'+
       '</div>';
     });
     html+='</div></div>';
   });
-  if(!html) html='<div style="padding:28px;text-align:center;color:#8A8A84;font-size:14px">Sin resultados</div>';
-  var shopEl=document.getElementById('shopContent');
-  if(shopEl){ shopEl.innerHTML=html; }
+  if(!html)html='<div style="padding:28px 0;text-align:center;color:var(--text3);font-size:14px">Sin resultados</div>';
+  document.getElementById('shopContent').innerHTML=html;
   updateProgress();
 }
 
-function toggleItem(el,cat,j){
+function toggleShop(cat,j,row){
   var key=cat+'_'+j;
   checked[key]=!checked[key];
+  saveChecked();
   var done=checked[key];
-  var checkEl=el.querySelector('.shop-check');
-  var textEl=el.querySelector('.shop-text');
-  if(done){
-    checkEl.classList.add('done');
-    checkEl.innerHTML='<i class="ti ti-check"></i>';
-    textEl.classList.add('done');
-  } else {
-    checkEl.classList.remove('done');
-    checkEl.innerHTML='';
-    textEl.classList.remove('done');
-  }
+  var chk=row.querySelector('.shop-check');
+  var txt=row.querySelector('.shop-item-text');
+  chk.className='shop-check'+(done?' done':'');
+  chk.innerHTML=done?'<i class="ti ti-check"></i>':'';
+  txt.className='shop-item-text'+(done?' done':'');
   updateProgress();
 }
 
 function updateProgress(){
-  var total=totalItems();
+  var total=totalShopItems();
   var done=Object.keys(checked).filter(function(k){return checked[k]}).length;
   var pct=total?Math.round(done/total*100):0;
-  document.getElementById('prog-text').textContent=done+' de '+total+' comprados';
-  document.getElementById('prog-pct').textContent=pct+'%';
-  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('progTxt').textContent=done+' de '+total+' comprados';
+  document.getElementById('progPct').textContent=pct+'%';
+  document.getElementById('progFill').style.width=pct+'%';
 }
 
 function filterCat(cat,el){
@@ -531,120 +672,104 @@ function filterCat(cat,el){
   renderShop();
 }
 
-function filterShop(val){
-  searchVal=val;
-  renderShop();
-}
+function filterShop(val){searchVal=val;renderShop();}
 
-function clearAll(){
+function clearShop(){
+  if(!confirm('Reiniciar lista de compras?'))return;
   checked={};
+  saveChecked();
   renderShop();
 }
 
-function openModal(type,name,ings,qtys,prot,kcal,time){
-  document.getElementById('m-type').textContent=type;
-  document.getElementById('m-name').textContent=name;
-  var html='';
-  ings.forEach(function(ing,i){
-    html+='<div class="modal-ing"><span class="modal-ing-name">'+ing+'</span><span class="modal-ing-qty">'+qtys[i]+'</span></div>';
-  });
-  document.getElementById('m-ings').innerHTML=html;
-  document.getElementById('m-badges').innerHTML=
-    '<span class="badge badge-g"><i class="ti ti-meat"></i>'+prot+'</span>'+
-    '<span class="badge badge-a"><i class="ti ti-flame"></i>'+kcal+'</span>'+
-    '<span class="badge badge-c"><i class="ti ti-clock"></i>'+time+'</span>';
-  document.getElementById('modal').classList.add('open');
-}
+// ── ASISTENTE IA ─────────────────────────────────────────────────────────────
+var AI_SYSTEM='Eres la asistente nutricional dentro de NutriArq, la app de Jimena, estudiante de Arquitectura en Lima. '+
+'Datos: 53.3 kg, 19.9% grasa, 40.1 kg musculo, BMR 1292 kcal. '+
+'Objetivo: 1941 kcal, 152g proteina (31%), 187g carbos (39%), 63g grasas (30%). '+
+'Plan con 5 comidas, alimentos peruanos, sin proteina en polvo, sin tomate, huevo solo en desayunos salados. '+
+'Sale 10am lunes y miercoles, 5pm viernes, 1pm sabado. '+
+'Si comio algo extra: calcula impacto brevemente y sugiere ajuste simple. '+
+'Si pide cambiar una comida: alternativa con proteina similar y alimentos peruanos sin tomate. '+
+'Si poco tiempo: opcion rapida menor a 10 minutos alta en proteina. '+
+'Responde en espanol, maximo 5 lineas, tono cercano y motivador, sin markdown ni asteriscos.';
 
-function closeModal(e){
-  if(e.target===document.getElementById('modal')){
-    document.getElementById('modal').classList.remove('open');
-  }
-}
-
-/* ASISTENTE IA */
-var aiHistory=[];
-var aiBusy=false;
-
-var PLAN_CONTEXT = "Eres el asistente nutricional dentro de la app NutriArq, de Jimena, estudiante de Arquitectura en Lima, Peru, en un plan de recomposicion corporal. " +
-  "Datos corporales: 53.3 kg, 19.9% grasa corporal, 40.1 kg masa muscular, BMR 1292 kcal. " +
-  "Objetivo diario: ~1941 kcal, 152g proteina (31%), 187g carbohidratos (39%), 63g grasas (30%). " +
-  "Plan semanal ya definido con 5 comidas diarias (desayuno, almuerzo, snack, postre, cena) usando alimentos peruanos faciles de conseguir en Wong, Plaza Vea y Flora & Fauna, sin proteina en polvo. " +
-  "Horario: sale a las 10am lunes y miercoles, 5pm viernes, 1pm sabado. " +
-  "Tu trabajo: si Jimena dice que comio algo extra o distinto, calcula brevemente el impacto y sugiere un ajuste simple para el resto del dia o la semana (por ejemplo reducir un poco de carbohidratos en la siguiente comida, o no preocuparse si fue minimo). " +
-  "Si pide cambiar una comida del menu, sugiere una alternativa con proteina similar usando ingredientes peruanos comunes. " +
-  "Si tiene poco tiempo, da una opcion rapida de menos de 10 minutos sin sacrificar mucha proteina. " +
-  "Si pregunta algo nutricional general, responde con base en evidencia, tono cercano y motivador, como una nutricionista deportiva de confianza. " +
-  "Responde siempre en español, de forma breve (maximo 4-5 lineas), calida, practica y sin emojis ni caracteres especiales raros. No uses markdown ni asteriscos.";
-
-function appendMsg(text, who){
-  var chat=document.getElementById('aiChat');
+function addMsg(text,who){
+  var msgs=document.getElementById('aiMessages');
   var div=document.createElement('div');
   div.className='ai-msg '+who;
   div.textContent=text;
-  chat.appendChild(div);
-  chat.scrollTop=chat.scrollHeight;
+  msgs.appendChild(div);
+  msgs.scrollTop=msgs.scrollHeight;
   return div;
 }
 
-function sendSuggestion(el){
+function useSuggestion(el){
   document.getElementById('aiInput').value=el.textContent;
-  sendMessage();
+  document.getElementById('aiChips').style.display='none';
+  sendAI();
 }
 
-function sendMessage(){
-  if(aiBusy) return;
+function sendAI(){
+  if(aiBusy)return;
   var input=document.getElementById('aiInput');
-  var text=input.value.trim();
-  if(!text) return;
-  document.getElementById('aiSuggestions').style.display='none';
-  appendMsg(text,'user');
+  var text=(input.value||'').trim();
+  if(!text)return;
+  document.getElementById('aiChips').style.display='none';
+  addMsg(text,'user');
   aiHistory.push({role:'user',content:text});
   input.value='';
   aiBusy=true;
-  document.getElementById('aiSendBtn').disabled=true;
-  var loadingEl=appendMsg('Pensando...','bot loading');
+  var btn=document.getElementById('aiSend');
+  btn.disabled=true;
+  var loadEl=addMsg('Pensando...','bot loading');
 
   fetch('https://api.anthropic.com/v1/messages',{
     method:'POST',
-    headers:{'Content-Type':'application/json'},
+    headers:{
+      'Content-Type':'application/json',
+      'x-api-key':'ANTHROPIC_KEY_PLACEHOLDER',
+      'anthropic-version':'2023-06-01',
+      'anthropic-dangerous-allow-browser':'true'
+    },
     body:JSON.stringify({
-      model:'claude-sonnet-4-6',
+      model:'claude-haiku-4-5-20251001',
       max_tokens:400,
-      system:PLAN_CONTEXT,
+      system:AI_SYSTEM,
       messages:aiHistory
     })
   })
-  .then(function(r){ return r.json(); })
+  .then(function(r){return r.json();})
   .then(function(data){
-    loadingEl.remove();
-    var textBlocks=(data.content||[]).filter(function(b){return b.type==='text'});
-    var reply=textBlocks.map(function(b){return b.text}).join('\n').trim();
-    if(!reply) reply='No pude procesar eso, intenta de nuevo.';
-    appendMsg(reply,'bot');
-    aiHistory.push({role:'assistant',content:reply});
+    loadEl.remove();
+    var reply='';
+    if(data.content&&data.content.length){
+      data.content.forEach(function(b){if(b.type==='text')reply+=b.text;});
+    }
+    if(!reply)reply='No pude procesar eso, intenta de nuevo.';
+    addMsg(reply.trim(),'bot');
+    aiHistory.push({role:'assistant',content:reply.trim()});
   })
-  .catch(function(err){
-    loadingEl.remove();
-    appendMsg('Hubo un problema de conexion. Intenta de nuevo en un momento.','bot');
+  .catch(function(){
+    loadEl.remove();
+    addMsg('Sin conexion a internet. Revisa tu red e intenta de nuevo.','bot');
   })
   .finally(function(){
     aiBusy=false;
-    document.getElementById('aiSendBtn').disabled=false;
+    btn.disabled=false;
   });
 }
 
-function initApp(){
+// ── INIT ─────────────────────────────────────────────────────────────────────
+function init(){
+  initInicio();
   buildDayPills();
   renderMenu(0);
-  renderTodayMeals();
   renderShop();
 }
 
 if(document.readyState==='loading'){
-  document.addEventListener('DOMContentLoaded', initApp);
-} else {
-  initApp();
+  document.addEventListener('DOMContentLoaded',init);
+}else{
+  init();
 }
 </script>
 </body>
