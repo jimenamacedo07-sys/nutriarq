@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="NutriArq">
 <title>NutriArq</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/tabler-icons.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -230,7 +230,7 @@ body{
 .wqa{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:13px 18px 0}
 .wqa-b{background:var(--sur);border:1.5px solid var(--bd);border-radius:var(--rs);padding:12px 7px;text-align:center;cursor:pointer;box-shadow:var(--sh);transition:background .1s}
 .wqa-b:active{background:var(--teal-dim)}
-.wqa-i{font-size:21px;margin-bottom:3px}
+.wqa-i{font-size:22px;margin-bottom:3px;color:var(--teal);display:flex;align-items:center;justify-content:center;height:26px}
 .wqa-l{font-size:12px;font-weight:600;color:var(--teal)}
 .wqa-m{font-size:10px;color:var(--t3);margin-top:1px}
 .wlog{margin:13px 18px 0;background:var(--sur);border-radius:var(--r);border:1px solid var(--bd);overflow:hidden;box-shadow:var(--sh)}
@@ -295,6 +295,7 @@ body{
 .pf-in:focus{border-color:var(--green)}
 .pf-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 .pf-date{font-size:12px;color:var(--t3);margin-bottom:13px;padding:0 17px}
+.wqa-i i{font-size:24px;color:var(--teal)}
 </style>
 </head>
 <body>
@@ -363,7 +364,7 @@ body{
 
   <!-- REGISTRO -->
   <div class="sc" id="sc-registro">
-    <div class="lbl" style="padding-bottom:8px">Registro de hoy</div>
+    <div class="lbl" style="padding-bottom:8px"><i class="ti ti-pencil-plus" style="font-size:14px;vertical-align:-2px;margin-right:4px"></i>Registro de hoy</div>
     <div class="ldh">
       <div class="ldh-d" id="logDate"></div>
       <div class="ldh-t">Tu consumo real</div>
@@ -381,7 +382,7 @@ body{
 
   <!-- PERFIL -->
   <div class="sc" id="sc-perfil">
-    <div class="lbl">Mi Perfil Corporal</div>
+    <div class="lbl"><i class="ti ti-user-circle" style="font-size:14px;vertical-align:-2px;margin-right:4px"></i>Mi Perfil Corporal</div>
     <div class="ph">
       <div class="ph-t">Jimena Macedo</div>
       <div class="ph-s" id="phDate">Medicion: Jun 18, 2026</div>
@@ -392,7 +393,7 @@ body{
       </div>
     </div>
     <div class="upd-btn" onclick="openProfModal()"><i class="ti ti-plus" style="font-size:15px"></i>Actualizar medicion</div>
-    <div class="lbl">Metricas detalladas</div>
+    <div class="lbl"><i class="ti ti-activity" style="font-size:14px;vertical-align:-2px;margin-right:4px"></i>Metricas detalladas</div>
     <div class="mgrid" id="mGrid"></div>
     <div class="chcard">
       <div class="ch-t">Evolucion del peso</div>
@@ -409,7 +410,7 @@ body{
 
   <!-- AGUA -->
   <div class="sc" id="sc-agua">
-    <div class="lbl">Hidratacion de hoy</div>
+    <div class="lbl"><i class="ti ti-droplet" style="font-size:14px;vertical-align:-2px;margin-right:4px;color:var(--teal)"></i>Hidratacion de hoy</div>
     <div class="wh">
       <div class="wh-a" id="wAmt">0.0<span class="wh-u">L</span></div>
       <div class="wh-g" id="wGoal">Meta: 2.0 L</div>
@@ -417,22 +418,22 @@ body{
       <div class="wh-pct" id="wPct">0%</div>
     </div>
     <div class="wqa">
-      <div class="wqa-b" onclick="addWater(200)"><div class="wqa-i">☕</div><div class="wqa-l">Vaso</div><div class="wqa-m">200ml</div></div>
-      <div class="wqa-b" onclick="addWater(350)"><div class="wqa-i">🧃</div><div class="wqa-l">Vaso grande</div><div class="wqa-m">350ml</div></div>
-      <div class="wqa-b" onclick="addWater(500)"><div class="wqa-i">🍶</div><div class="wqa-l">Botella</div><div class="wqa-m">500ml</div></div>
-      <div class="wqa-b" onclick="addWater(750)"><div class="wqa-i">🫙</div><div class="wqa-l">Botella grande</div><div class="wqa-m">750ml</div></div>
-      <div class="wqa-b" onclick="addWater(1000)"><div class="wqa-i">🧴</div><div class="wqa-l">1 Litro</div><div class="wqa-m">1000ml</div></div>
-      <div class="wqa-b" onclick="customWater()"><div class="wqa-i">✏️</div><div class="wqa-l">Otro</div><div class="wqa-m">cantidad</div></div>
+      <div class="wqa-b" onclick="addWater(200)"><div class="wqa-i"><i class="ti ti-glass"></i></div><div class="wqa-l">Vaso</div><div class="wqa-m">200ml</div></div>
+      <div class="wqa-b" onclick="addWater(350)"><div class="wqa-i"><i class="ti ti-glass-full"></i></div><div class="wqa-l">Vaso grande</div><div class="wqa-m">350ml</div></div>
+      <div class="wqa-b" onclick="addWater(500)"><div class="wqa-i"><i class="ti ti-bottle"></i></div><div class="wqa-l">Botella</div><div class="wqa-m">500ml</div></div>
+      <div class="wqa-b" onclick="addWater(750)"><div class="wqa-i"><i class="ti ti-bottle"></i></div><div class="wqa-l">Botella grande</div><div class="wqa-m">750ml</div></div>
+      <div class="wqa-b" onclick="addWater(1000)"><div class="wqa-i"><i class="ti ti-droplet-filled"></i></div><div class="wqa-l">1 Litro</div><div class="wqa-m">1000ml</div></div>
+      <div class="wqa-b" onclick="customWater()"><div class="wqa-i"><i class="ti ti-pencil"></i></div><div class="wqa-l">Otro</div><div class="wqa-m">cantidad</div></div>
     </div>
     <div class="wgs">
-      <div class="wgs-t">Meta diaria de agua</div>
+      <div class="wgs-t"><i class="ti ti-target" style="font-size:14px;vertical-align:-2px;margin-right:5px;color:var(--teal)"></i>Meta diaria de agua</div>
       <div class="wgs-row">
         <input type="number" id="goalIn" placeholder="2.0" step="0.1" min="0.5" max="5">
         <button class="wgs-btn" onclick="setGoal()">Guardar</button>
       </div>
     </div>
     <div class="wlog">
-      <div class="wlog-h">Registro de hoy</div>
+      <div class="wlog-h"><i class="ti ti-list" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Registro de hoy</div>
       <div id="wLog"></div>
     </div>
     <div style="height:12px"></div>
@@ -563,43 +564,43 @@ var FOODS = {
 var DAYS = [
   {name:'Lunes',ctx:'Sale 10am - Taper noche anterior',kcal:'1,905',target:{p:151,c:183,f:62,k:1905},meals:[
     {ico:'ti-egg-fried',type:'Desayuno - 8:00 am',name:'Tortilla de claras con quinua, palta y espinaca',prot:'38g',kcal:'480 kcal',time:'12 min',ings:['Claras de huevo','Huevo entero','Quinua cocida','Palta','Espinaca','Aceite de oliva'],qtys:['6 claras','1 unid','80g','70g','50g','1 cdta']},
-    {ico:'ti-container',type:'Almuerzo taper - 1:00 pm',name:'Arroz con pollo a la curcuma y brocoli',prot:'45g',kcal:'575 kcal',time:'25 min',ings:['Pechuga de pollo','Arroz cocido','Brocoli','Cebolla morada','Limon','Aceite de oliva'],qtys:['180g','150g','100g','50g','1 unid','1 cda']},
-    {ico:'ti-backpack',type:'Snack - 4:00 pm',name:'Almendras + atun + galletas arroz',prot:'26g',kcal:'320 kcal',time:'0 min',ings:['Almendras','Atun al agua','Galletas de arroz'],qtys:['25g','90g','20g']},
+    {ico:'ti-box',type:'Almuerzo taper - 1:00 pm',name:'Arroz con pollo a la curcuma y brocoli',prot:'45g',kcal:'575 kcal',time:'25 min',ings:['Pechuga de pollo','Arroz cocido','Brocoli','Cebolla morada','Limon','Aceite de oliva'],qtys:['180g','150g','100g','50g','1 unid','1 cda']},
+    {ico:'ti-school',type:'Snack - 4:00 pm',name:'Almendras + atun + galletas arroz',prot:'26g',kcal:'320 kcal',time:'0 min',ings:['Almendras','Atun al agua','Galletas de arroz'],qtys:['25g','90g','20g']},
     {ico:'ti-star',type:'Postre',name:'Mousse de chocolate con platano y yogur',prot:'8g',kcal:'160 kcal',time:'5 min',ings:['Platano congelado','Cacao puro','Yogur griego'],qtys:['1 unid','1 cda','2 cdas']},
     {ico:'ti-fish',type:'Cena - 8:00 pm',name:'Salmon al limon con camote y espinacas',prot:'42g',kcal:'365 kcal',time:'18 min',ings:['Salmon','Camote','Espinacas','Ajo','Limon','Aceite oliva'],qtys:['160g','150g','100g','2 dientes','1 unid','1 cdta']}
   ]},
   {name:'Martes',ctx:'Dia flexible - Posible entreno',kcal:'1,915',target:{p:149,c:186,f:63,k:1915},meals:[
     {ico:'ti-bowl',type:'Desayuno - 7:30 am',name:'Bowl de avena con yogur, fresas y mani',prot:'34g',kcal:'490 kcal',time:'8 min',ings:['Avena','Leche evaporada light','Yogur griego','Fresas','Platano','Mani natural','Canela'],qtys:['60g','100ml','80g','80g','1/2 unid','15g','1 cdta']},
     {ico:'ti-meat',type:'Almuerzo - 1:00 pm',name:'Lomo de res a la plancha con lentejas',prot:'48g',kcal:'560 kcal',time:'20 min',ings:['Res magra','Lentejas cocidas','Zanahoria','Ajo','Aceite oliva','Perejil'],qtys:['180g','150g','100g','al gusto','1 cda','al gusto']},
-    {ico:'ti-nut',type:'Snack - 4:30 pm',name:'Queso cottage con mani y arandanos',prot:'22g',kcal:'270 kcal',time:'1 min',ings:['Queso cottage','Mani sin sal','Arandanos secos'],qtys:['150g','20g','15g']},
+    {ico:'ti-grain',type:'Snack - 4:30 pm',name:'Queso cottage con mani y arandanos',prot:'22g',kcal:'270 kcal',time:'1 min',ings:['Queso cottage','Mani sin sal','Arandanos secos'],qtys:['150g','20g','15g']},
     {ico:'ti-star',type:'Postre',name:'Gelatina de maracuya natural',prot:'5g',kcal:'85 kcal',time:'5 min',ings:['Gelatina sin sabor','Jugo maracuya','Miel'],qtys:['7g','100ml','1 cdta']},
     {ico:'ti-drumstick',type:'Cena - 8:00 pm',name:'Pechuga al horno con papa y ensalada',prot:'46g',kcal:'505 kcal',time:'25 min',ings:['Pechuga pollo','Papa amarilla','Lechuga','Pepino','Palta','Limon y oliva'],qtys:['200g','150g','80g','1/2 unid','1/4 unid','aderezo']}
   ]},
   {name:'Miercoles',ctx:'Sale 10am - Taper noche anterior',kcal:'1,895',target:{p:150,c:182,f:61,k:1895},meals:[
     {ico:'ti-egg-fried',type:'Desayuno - 8:30 am',name:'Tostadas con huevo revuelto, palta y queso',prot:'36g',kcal:'480 kcal',time:'8 min',ings:['Pan integral','Huevos enteros','Queso fresco','Palta','Aceite oliva','Oregano'],qtys:['2 rebanadas','3 unid','40g','1/4 unid','1 cdta','al gusto']},
     {ico:'ti-salad',type:'Almuerzo taper - 1:00 pm',name:'Quinua con atun, palta, pepino y maiz',prot:'46g',kcal:'535 kcal',time:'5 min',ings:['Quinua cocida','Atun en agua','Palta','Pepino','Maiz desgranado','Limon y oliva'],qtys:['160g','2 latas','1/2 unid','1/2 unid','50g','aderezo']},
-    {ico:'ti-nut',type:'Snack - 4:00 pm',name:'Nueces + mani + arandanos',prot:'10g',kcal:'300 kcal',time:'0 min',ings:['Nueces','Mani sin sal','Arandanos secos'],qtys:['20g','20g','15g']},
+    {ico:'ti-grain',type:'Snack - 4:00 pm',name:'Nueces + mani + arandanos',prot:'10g',kcal:'300 kcal',time:'0 min',ings:['Nueces','Mani sin sal','Arandanos secos'],qtys:['20g','20g','15g']},
     {ico:'ti-apple',type:'Postre',name:'Manzana al horno con canela y avena',prot:'2g',kcal:'140 kcal',time:'20 min',ings:['Manzana','Miel','Canela','Avena'],qtys:['1 unid','1 cdta','al gusto','1 cda']},
     {ico:'ti-fish',type:'Cena - 8:30 pm',name:'Tilapia al ajo con frijoles y arroz integral',prot:'56g',kcal:'535 kcal',time:'20 min',ings:['Tilapia','Frijoles negros','Arroz integral','Ajo','Limon','Culantro'],qtys:['200g','120g','100g','3 dientes','1 unid','al gusto']}
   ]},
   {name:'Jueves',ctx:'Dia libre - Entreno tarde',kcal:'1,910',target:{p:148,c:185,f:63,k:1910},meals:[
     {ico:'ti-egg-fried',type:'Desayuno - 8:00 am',name:'Omelette de claras con champinones y queso',prot:'40g',kcal:'390 kcal',time:'10 min',ings:['Claras de huevo','Huevo entero','Champinones','Espinacas','Queso fresco','Aceite oliva'],qtys:['5 claras','1 unid','100g','60g','50g','1 cdta']},
-    {ico:'ti-pot',type:'Almuerzo - 1:30 pm',name:'Estofado de pollo con papa y arroz',prot:'44g',kcal:'570 kcal',time:'30 min',ings:['Muslo pollo sin piel','Papa amarilla','Arroz','Cebolla','Aji amarillo','Culantro'],qtys:['200g','180g','120g','1/2 unid','1/2 unid','al gusto']},
+    {ico:'ti-kettle',type:'Almuerzo - 1:30 pm',name:'Estofado de pollo con papa y arroz',prot:'44g',kcal:'570 kcal',time:'30 min',ings:['Muslo pollo sin piel','Papa amarilla','Arroz','Cebolla','Aji amarillo','Culantro'],qtys:['200g','180g','120g','1/2 unid','1/2 unid','al gusto']},
     {ico:'ti-cup',type:'Snack - 4:30 pm',name:'Yogur griego con nueces y miel',prot:'17g',kcal:'270 kcal',time:'1 min',ings:['Yogur griego','Nueces','Miel'],qtys:['150g','15g','1 cdta']},
-    {ico:'ti-ice-cream',type:'Postre',name:'Helado de lucuma con cacao',prot:'3g',kcal:'120 kcal',time:'5 min',ings:['Lucuma congelada','Cacao puro','Leche evaporada'],qtys:['100g','1 cda','1 cda']},
+    {ico:'ti-snowflake',type:'Postre',name:'Helado de lucuma con cacao',prot:'3g',kcal:'120 kcal',time:'5 min',ings:['Lucuma congelada','Cacao puro','Leche evaporada'],qtys:['100g','1 cda','1 cda']},
     {ico:'ti-drumstick',type:'Cena - 8:00 pm',name:'Pechuga a la plancha con camote y ensalada',prot:'46g',kcal:'480 kcal',time:'20 min',ings:['Pechuga pollo','Camote','Lechuga','Pepino','Aceitunas','Limon y oliva'],qtys:['200g','150g','80g','1/2 unid','6 unid','aderezo']}
   ]},
   {name:'Viernes',ctx:'Sale 5:00 pm - Mas tiempo en casa',kcal:'1,930',target:{p:152,c:188,f:62,k:1930},meals:[
     {ico:'ti-bowl',type:'Desayuno - 9:00 am',name:'Bowl de avena con yogur, mango y granola',prot:'35g',kcal:'490 kcal',time:'8 min',ings:['Avena','Leche evaporada','Yogur griego','Mango','Granola','Chia','Miel'],qtys:['60g','100ml','80g','80g','25g','1 cda','1 cdta']},
     {ico:'ti-soup',type:'Almuerzo - 1:00 pm',name:'Seco de carne con frijoles y yuca',prot:'50g',kcal:'590 kcal',time:'35 min',ings:['Res magra','Frijoles','Yuca','Cebolla','Culantro y aji','Aceite oliva'],qtys:['200g','150g','120g','1/2 unid','guiso','1 cda']},
     {ico:'ti-cheese',type:'Snack - 7:00 pm',name:'Queso fresco + galletas + mani',prot:'14g',kcal:'230 kcal',time:'1 min',ings:['Queso fresco','Galletas de arroz','Mani'],qtys:['50g','4 galletas','15g']},
-    {ico:'ti-candy',type:'Postre',name:'Trufas de mani y datil con cacao',prot:'6g',kcal:'180 kcal',time:'5 min',ings:['Datiles','Mani natural','Cacao en polvo'],qtys:['4 unid','2 cdas','al gusto']},
+    {ico:'ti-heart',type:'Postre',name:'Trufas de mani y datil con cacao',prot:'6g',kcal:'180 kcal',time:'5 min',ings:['Datiles','Mani natural','Cacao en polvo'],qtys:['4 unid','2 cdas','al gusto']},
     {ico:'ti-drumstick',type:'Cena - 10:00 pm',name:'Pollo al limon con lechuga, pepino y aceitunas',prot:'46g',kcal:'440 kcal',time:'15 min',ings:['Pechuga pollo','Lechuga','Pepino','Cebolla morada','Aceitunas','Limon y oliva'],qtys:['180g','80g','1 unid','1/4 unid','6 unid','aderezo']}
   ]},
   {name:'Sabado',ctx:'Sale 1pm - Entreno AM',kcal:'1,980',target:{p:155,c:190,f:65,k:1980},meals:[
     {ico:'ti-egg-fried',type:'Desayuno - 9:00 am',name:'Tostadas con huevo pochado, jamon, palta y espinaca',prot:'42g',kcal:'520 kcal',time:'15 min',ings:['Huevos pochados','Jamon serrano','Pan integral','Palta','Espinaca','Limon'],qtys:['3 unid','80g','2 rebanadas','1/2 unid','40g','al gusto']},
     {ico:'ti-salad',type:'Almuerzo taper - 2:30 pm',name:'Ensalada Cesar de pollo a la parrilla',prot:'50g',kcal:'490 kcal',time:'10 min',ings:['Pechuga a la parrilla','Lechuga romana','Queso parmesano','Aderezo Cesar light','Pepino','Aceitunas'],qtys:['200g','100g','20g','2 cdas','1/2 unid','6 unid']},
-    {ico:'ti-plant',type:'Snack - 5:30 pm',name:'Edamame salado + mani',prot:'16g',kcal:'280 kcal',time:'2 min',ings:['Edamame','Mani natural'],qtys:['100g','20g']},
+    {ico:'ti-seedling',type:'Snack - 5:30 pm',name:'Edamame salado + mani',prot:'16g',kcal:'280 kcal',time:'2 min',ings:['Edamame','Mani natural'],qtys:['100g','20g']},
     {ico:'ti-cup',type:'Postre',name:'Panna cotta de leche y maracuya',prot:'7g',kcal:'130 kcal',time:'5 min',ings:['Leche evaporada light','Gelatina sin sabor','Jugo maracuya','Stevia'],qtys:['150ml','7g','2 unid','al gusto']},
     {ico:'ti-fish',type:'Cena - 8:30 pm',name:'Ceviche de tilapia con camote y choclo',prot:'40g',kcal:'560 kcal',time:'15 min',ings:['Tilapia','Limon','Cebolla morada','Aji limo','Culantro','Camote','Choclo'],qtys:['180g','6 unid','1/2 unid','1/4 unid','al gusto','150g','1/2 mazorca']}
   ]},
